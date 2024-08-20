@@ -6,7 +6,7 @@ import 'instantsearch.css/themes/satellite-min.css';
 import ContextProvider from '@/context/context-provider';
 
 // Components
-import CartTrigger from '@/components/Commerce/CartTrigger';
+import Header from '@/components/Header';
 
 export const metadata = {
   title: 'Create Next App',
@@ -18,9 +18,7 @@ export default function RootLayout({ children }) {
     <html lang='en'>
       <body>
         <ContextProvider>
-          <header>
-            <CartTrigger />
-          </header>
+          <Header />
           {children}
           <footer>
             <p>Footer goes here</p>

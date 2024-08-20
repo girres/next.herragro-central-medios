@@ -35,24 +35,11 @@ type HitProps = {
   }>;
 };
 
-// const Tags = ({ categories }: { categories: string[] }) => {
-//   return (
-//     <div className='tags'>
-//       {categories.map((category, index) => (
-//         <span key={index} className='tag-category'>
-//           {category.name}
-//         </span>
-//       ))}
-//     </div>
-//   );
-// };
-
 function Hit({ hit }: HitProps) {
   const {
     hasVideo = false,
     hasImage = false,
     hasDocument = false,
-    categories = [],
     slug = '/',
     published = new Date(),
   } = hit;
