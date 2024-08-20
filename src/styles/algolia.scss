@@ -22,16 +22,16 @@
 }
 
 .filters-container {
-    @apply flex items-center justify-center space-x-5 py-10;
+    @apply flex items-center justify-center space-x-1 lg:space-x-5 py-10;
 
     .btn-facet {
         @apply effect;
-        @apply bg-white w-[120px] h-[120px] shadow-md;
+        @apply bg-white w-[100px] h-[80px] lg:w-[120px] lg:h-[120px] shadow-md;
         @apply p-3 rounded-2xl border-2 border-white;
         @apply hover:shadow-xl;
 
         .image {
-            @apply w-[60px] h-[60px];
+            @apply w-[40px] h-[40px] lg:w-[60px] lg:h-[60px];
 
             img {
                 @apply effect;
@@ -84,7 +84,7 @@
             @apply flex space-x-5;
 
             img {
-                @apply w-[30px] h-[30px];
+                @apply w-[30px];
             }
         }
 
