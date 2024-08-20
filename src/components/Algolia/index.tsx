@@ -35,17 +35,17 @@ type HitProps = {
   }>;
 };
 
-const Tags = ({ categories }: { categories: string[] }) => {
-  return (
-    <div className='tags'>
-      {categories.map((category) => (
-        <span key={category} className='tag-category'>
-          {category.name}
-        </span>
-      ))}
-    </div>
-  );
-};
+// const Tags = ({ categories }: { categories: string[] }) => {
+//   return (
+//     <div className='tags'>
+//       {categories.map((category, index) => (
+//         <span key={index} className='tag-category'>
+//           {category.name}
+//         </span>
+//       ))}
+//     </div>
+//   );
+// };
 
 function Hit({ hit }: HitProps) {
   const {
@@ -54,14 +54,21 @@ function Hit({ hit }: HitProps) {
     hasDocument = false,
     categories = [],
     slug = '/',
+    published = new Date(),
   } = hit;
+
   return (
     <div className='result-item grid grid-cols-2'>
       <div className='left'>
+        <div className='date-published'>
+          Publicado el {new Date(published).toLocaleDateString()}
+        </div>
         <div className='title'>
           <Highlight attribute='name' hit={hit} />
         </div>
-        <Tags categories={categories} />
+        <div className='categories'>
+          <Highlight attribute='categories' hit={hit} separator=' / ' />
+        </div>
       </div>
       <div className='right'>
         <div className='content-tags'>
@@ -130,8 +137,8 @@ export default function Search() {
     }
 
     // Build the new filter
-    const newFilter = filterParts.join(' AND ');
-    const newFilterString = `${BASE_FILTER} AND ${newFilter}`;
+    const newFilter = filterParts.join(' OR ');
+    const newFilterString = `${BASE_FILTER} AND (${newFilter})`;
     setFilter(newFilterString);
     return;
   }, [filterParts]);
@@ -140,51 +147,49 @@ export default function Search() {
     <div className='algolia-block'>
       <InstantSearch searchClient={client} indexName={ALGOLIA_INDEX_NAME}>
         <Configure filters={filter} />
-        <div className='bg-red-800'>
-          <div className='search-container'>
-            <SearchBox
-              autoFocus
-              placeholder='Busca archivos por nombre, producto o palabra clave.'
-              classNames={{
-                // root: 'page-main-search',
-                // form: 'search-bar-form',
-                input: 'input',
-                submit: 'search-bar-submit',
-                // reset: 'search-bar-reset',
-              }}
-            />
-          </div>
-          <div className='filters-container'>
-            <Panel
-              attribute='hasImage'
-              type='image'
-              title='Imágenes'
-              onClick={onPressFacet}
-              active={filterParts.includes('hasImage:true')}
-            />
-            <Panel
-              attribute='hasVideo'
-              type='video'
-              title='Videos'
-              onClick={onPressFacet}
-              active={filterParts.includes('hasVideo:true')}
-            />
-            <Panel
-              attribute='hasDocument'
-              type='document'
-              title='Documentos'
-              onClick={onPressFacet}
-              active={filterParts.includes('hasDocument:true')}
-            />
-          </div>
-          <div className='results-container'>
-            <Hits
-              hitComponent={Hit}
-              classNames={{
-                list: 'max-w-[700px] mx-auto',
-              }}
-            />
-          </div>
+        <div className='search-container'>
+          <SearchBox
+            autoFocus
+            placeholder='Busca archivos por nombre, producto o palabra clave.'
+            classNames={{
+              // root: 'page-main-search',
+              // form: 'search-bar-form',
+              input: 'input',
+              submit: 'search-bar-submit',
+              // reset: 'search-bar-reset',
+            }}
+          />
+        </div>
+        <div className='filters-container'>
+          <Panel
+            attribute='hasImage'
+            type='image'
+            title='Imágenes'
+            onClick={onPressFacet}
+            active={filterParts.includes('hasImage:true')}
+          />
+          <Panel
+            attribute='hasVideo'
+            type='video'
+            title='Videos'
+            onClick={onPressFacet}
+            active={filterParts.includes('hasVideo:true')}
+          />
+          <Panel
+            attribute='hasDocument'
+            type='document'
+            title='Documentos'
+            onClick={onPressFacet}
+            active={filterParts.includes('hasDocument:true')}
+          />
+        </div>
+        <div className='results-container'>
+          <Hits
+            hitComponent={Hit}
+            classNames={{
+              list: 'max-w-[700px] mx-auto',
+            }}
+          />
         </div>
       </InstantSearch>
     </div>
