@@ -1,6 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ChevronDoubleRightIcon } from '@heroicons/react/24/solid';
 
 // Algolia
 import { liteClient as algoliasearch } from 'algoliasearch/lite';
@@ -32,16 +35,74 @@ type HitProps = {
   }>;
 };
 
-function Hit({ hit }: HitProps) {
-  const { hasVideo = false, hasImage = false, hasDocument = false } = hit;
+const Tags = ({ categories }: { categories: string[] }) => {
   return (
-    <div className=''>
-      <div className='font-bold text-lg'>
-        <Highlight attribute='name' hit={hit} />
+    <div className='tags'>
+      {categories.map((category) => (
+        <span key={category} className='tag-category'>
+          {category.name}
+        </span>
+      ))}
+    </div>
+  );
+};
+
+function Hit({ hit }: HitProps) {
+  const {
+    hasVideo = false,
+    hasImage = false,
+    hasDocument = false,
+    categories = [],
+    slug = '/',
+  } = hit;
+  return (
+    <div className='result-item grid grid-cols-2'>
+      <div className='left'>
+        <div className='title'>
+          <Highlight attribute='name' hit={hit} />
+        </div>
+        <Tags categories={categories} />
       </div>
-      {hasVideo && <span className='badge'>Video</span>}
-      {hasImage && <span className='badge'>Images</span>}
-      {hasDocument && <span className='badge'>Docs</span>}
+      <div className='right'>
+        <div className='content-tags'>
+          {hasVideo && (
+            <div>
+              <Image
+                src='/images/video.png'
+                alt='Video'
+                width={100}
+                height={100}
+                quality={60}
+              />
+            </div>
+          )}
+          {hasImage && (
+            <div>
+              <Image
+                src='/images/image.png'
+                alt='Image'
+                width={100}
+                height={100}
+                quality={60}
+              />
+            </div>
+          )}
+          {hasDocument && (
+            <div>
+              <Image
+                src='/images/document.png'
+                alt='Document'
+                width={100}
+                height={100}
+                quality={60}
+              />
+            </div>
+          )}
+        </div>
+        <Link href={`/asset/${slug}`} className='btn btn-circle'>
+          <ChevronDoubleRightIcon className='w-4 h-4' />
+        </Link>
+      </div>
     </div>
   );
 }
@@ -76,39 +137,56 @@ export default function Search() {
   }, [filterParts]);
 
   return (
-    <InstantSearch searchClient={client} indexName={ALGOLIA_INDEX_NAME}>
-      <Configure filters={filter} />
-      <div className='bg-red-800'>
-        <div className='filters-container'>
-          <Panel
-            attribute='hasImage'
-            type='image'
-            title='Imágenes'
-            onClick={onPressFacet}
-            active={filterParts.includes('hasImage:true')}
-          />
-          <Panel
-            attribute='hasVideo'
-            type='video'
-            title='Videos'
-            onClick={onPressFacet}
-            active={filterParts.includes('hasVideo:true')}
-          />
-          <Panel
-            attribute='hasDocument'
-            type='document'
-            title='Documentos'
-            onClick={onPressFacet}
-            active={filterParts.includes('hasDocument:true')}
-          />
+    <div className='algolia-block'>
+      <InstantSearch searchClient={client} indexName={ALGOLIA_INDEX_NAME}>
+        <Configure filters={filter} />
+        <div className='bg-red-800'>
+          <div className='search-container'>
+            <SearchBox
+              autoFocus
+              placeholder='Busca archivos por nombre, producto o palabra clave.'
+              classNames={{
+                // root: 'page-main-search',
+                // form: 'search-bar-form',
+                input: 'input',
+                submit: 'search-bar-submit',
+                // reset: 'search-bar-reset',
+              }}
+            />
+          </div>
+          <div className='filters-container'>
+            <Panel
+              attribute='hasImage'
+              type='image'
+              title='Imágenes'
+              onClick={onPressFacet}
+              active={filterParts.includes('hasImage:true')}
+            />
+            <Panel
+              attribute='hasVideo'
+              type='video'
+              title='Videos'
+              onClick={onPressFacet}
+              active={filterParts.includes('hasVideo:true')}
+            />
+            <Panel
+              attribute='hasDocument'
+              type='document'
+              title='Documentos'
+              onClick={onPressFacet}
+              active={filterParts.includes('hasDocument:true')}
+            />
+          </div>
+          <div className='results-container'>
+            <Hits
+              hitComponent={Hit}
+              classNames={{
+                list: 'max-w-[700px] mx-auto',
+              }}
+            />
+          </div>
         </div>
-        <div className='search-container'>
-          <SearchBox />
-        </div>
-        <div className='results-container'>
-          <Hits hitComponent={Hit} />
-        </div>
-      </div>
-    </InstantSearch>
+      </InstantSearch>
+    </div>
   );
 }
