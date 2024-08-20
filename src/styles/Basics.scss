@@ -41,3 +41,11 @@ h5 {
 h6 {
     @apply text-base;
 }
+
+.container {
+    @apply mx-auto px-4 max-w-[1200px];
+}
+
+.main-content {
+    @apply min-h-screen;
+}

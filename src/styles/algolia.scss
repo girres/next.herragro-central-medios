@@ -1,0 +1,51 @@
+.filters-container {
+    @apply bg-purple-200;
+    @apply flex items-center justify-center space-x-5 py-10;
+}
+
+.search-container {
+    @apply bg-purple-500;
+}
+
+.results-container {
+    @apply bg-purple-900;
+}
+
+.btn-facet {
+    @apply effect;
+    @apply bg-white w-[120px] h-[120px] shadow-md;
+    @apply p-3 rounded-2xl border-2 border-white;
+    @apply hover:shadow-xl;
+
+    .image {
+        @apply w-[60px] h-[60px];
+
+        img {
+            @apply effect;
+            @apply w-full;
+        }
+    }
+
+    .text {
+        @apply effect;
+        @apply m-0 text-xs font-medium mt-2;
+    }
+
+    &.active {
+        @apply bg-black border-yellow-1;
+
+        .image {
+            img {
+                @apply scale-110;
+            }
+        }
+
+        .text {
+            @apply text-yellow-1;
+        }
+    }
+
+    .facet-content {
+        @apply flex items-center justify-center flex-col;
+    }
+}

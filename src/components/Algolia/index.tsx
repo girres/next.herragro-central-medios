@@ -1,8 +1,10 @@
 'use client';
+
 import { useState, useEffect } from 'react';
+
+// Algolia
 import { liteClient as algoliasearch } from 'algoliasearch/lite';
 import { Hit as AlgoliaHit } from 'instantsearch.js';
-import React from 'react';
 import {
   InstantSearch,
   Hits,
@@ -10,11 +12,15 @@ import {
   SearchBox,
   Configure,
 } from 'react-instantsearch';
+
+// Components
 import { Panel } from '@/components/Algolia/Panel';
 
+// Constants
 const ALGOLIA_INDEX_NAME = process.env.NEXT_PUBLIC_ALGOLIA_INDEX;
 const BASE_FILTER = 'active:true AND NOT published:false';
 
+// Algolia client
 const client = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
   process.env.NEXT_PUBLIC_ALGOLIA_API_KEY
@@ -72,29 +78,34 @@ export default function Search() {
   return (
     <InstantSearch searchClient={client} indexName={ALGOLIA_INDEX_NAME}>
       <Configure filters={filter} />
-      <div className='Container'>
-        <div>
+      <div className='bg-red-800'>
+        <div className='filters-container'>
           <Panel
             attribute='hasImage'
             type='image'
+            title='Imágenes'
             onClick={onPressFacet}
             active={filterParts.includes('hasImage:true')}
           />
           <Panel
             attribute='hasVideo'
             type='video'
+            title='Videos'
             onClick={onPressFacet}
             active={filterParts.includes('hasVideo:true')}
           />
           <Panel
             attribute='hasDocument'
             type='document'
+            title='Documentos'
             onClick={onPressFacet}
             active={filterParts.includes('hasDocument:true')}
           />
         </div>
-        <div>
+        <div className='search-container'>
           <SearchBox />
+        </div>
+        <div className='results-container'>
           <Hits hitComponent={Hit} />
         </div>
       </div>

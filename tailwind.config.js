@@ -2,7 +2,9 @@
 
 const colors = require('tailwindcss/colors');
 
-const customColors = {};
+const customColors = {
+  'yellow-1': '#F5D834',
+};
 
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}', './public/**/*.html'],
