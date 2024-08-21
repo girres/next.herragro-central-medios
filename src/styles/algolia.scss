@@ -10,7 +10,7 @@
     }
 
     .input {
-        @apply input-bordered input-lg font-light text-sm rounded-full bg-white shadow w-full;
+        @apply input-bordered input-lg font-light text-sm lg:rounded-full bg-white shadow w-full;
         @apply min-h-[50px];
     }
 

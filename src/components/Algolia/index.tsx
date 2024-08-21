@@ -89,7 +89,7 @@ function Stats(props) {
         <strong>{nbHits}</strong>{' '}
         {nbHits === 1 ? 'recurso encontrado' : 'recursos encontrados'}
       </p>
-      <div className='divider' />
+      <div className='divider mb-1 pb-1' />
     </div>
   );
 }
