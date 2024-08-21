@@ -6,6 +6,12 @@
     @apply transition-all duration-300;
 }
 
+.btn-yellow {
+    @apply btn bg-black border-yellow-1 text-yellow-1 btn-md rounded;
+    @apply w-40 mt-5 uppercase font-medium;
+    @apply hover:bg-yellow-1 hover:text-black hover:border-black;
+}
+
 // Basics
 @import "./font.scss";
 
@@ -23,3 +29,6 @@
 
 // Algolia
 @import "./algolia.scss";
+
+// Blog
+@import "./blog.scss";
