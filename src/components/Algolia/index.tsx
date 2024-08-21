@@ -3,7 +3,10 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDoubleRightIcon } from '@heroicons/react/24/solid';
+import {
+  ChevronDoubleRightIcon,
+  ExclamationTriangleIcon,
+} from '@heroicons/react/24/solid';
 
 // Algolia
 import { liteClient as algoliasearch } from 'algoliasearch/lite';
@@ -14,7 +17,10 @@ import {
   Highlight,
   SearchBox,
   Configure,
+  useConnector,
+  useInstantSearch,
 } from 'react-instantsearch';
+import connectStats from 'instantsearch.js/es/connectors/stats/connectStats';
 
 // Components
 import { Panel } from '@/components/Algolia/Panel';
@@ -34,6 +40,59 @@ type HitProps = {
     name: string;
   }>;
 };
+
+function NoResults() {
+  const { indexUiState } = useInstantSearch();
+
+  return (
+    <div className='mt-3 p-5 bg-gray-200 text-xs text-gray-500 rounded-md'>
+      <div className='flex items-center'>
+        <ExclamationTriangleIcon className='w-8 h-8' />
+        <p className='m-0 font-light w-full ml-5'>
+          No encontramos recursos digitales para{' '}
+          <strong className='bg-yellow-1'>
+            <q>{indexUiState.query}</q>
+          </strong>
+          . Intenta nuevamente y recuerda que puedes buscar por nombre,
+          referencia, categoría, color etc.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function NoResultsBoundary({ children, fallback }) {
+  const { results } = useInstantSearch();
+
+  if (!results.__isArtificial && results.nbHits === 0) {
+    return (
+      <>
+        {fallback}
+        <div hidden>{children}</div>
+      </>
+    );
+  }
+
+  return children;
+}
+
+function useStats(props) {
+  return useConnector(connectStats, props);
+}
+
+function Stats(props) {
+  const { nbHits } = useStats(props);
+
+  return (
+    <div>
+      <p className='search-stats text-xs m-0'>
+        <strong>{nbHits}</strong>{' '}
+        {nbHits === 1 ? 'recurso encontrado' : 'recursos encontrados'}
+      </p>
+      <div className='divider' />
+    </div>
+  );
+}
 
 function Hit({ hit }: HitProps) {
   const {
@@ -93,7 +152,7 @@ function Hit({ hit }: HitProps) {
             </div>
           )}
         </div>
-        <Link href={`/asset/${slug}`} className='btn btn-circle'>
+        <Link href={`/asset/${slug}`} className='btn-yellow-circle'>
           <ChevronDoubleRightIcon className='w-4 h-4' />
         </Link>
       </div>
@@ -101,7 +160,7 @@ function Hit({ hit }: HitProps) {
   );
 }
 
-export default function Search() {
+export default function Component() {
   const [filter, setFilter] = useState<string>(BASE_FILTER);
   const [filterParts, setFilterParts] = useState<string[]>([]);
 
@@ -139,11 +198,8 @@ export default function Search() {
             autoFocus
             placeholder='Busca archivos por nombre, producto o palabra clave.'
             classNames={{
-              // root: 'page-main-search',
-              // form: 'search-bar-form',
               input: 'input',
               submit: 'search-bar-submit',
-              // reset: 'search-bar-reset',
             }}
           />
         </div>
@@ -171,12 +227,17 @@ export default function Search() {
           />
         </div>
         <div className='results-container'>
-          <Hits
-            hitComponent={Hit}
-            classNames={{
-              list: 'max-w-[700px] mx-auto',
-            }}
-          />
+          <Stats />
+          <div className='hits-container'>
+            <NoResultsBoundary fallback={<NoResults />}>
+              <Hits
+                hitComponent={Hit}
+                classNames={{
+                  list: 'max-w-[700px] mx-auto',
+                }}
+              />
+            </NoResultsBoundary>
+          </div>
         </div>
       </InstantSearch>
     </div>

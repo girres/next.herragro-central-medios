@@ -1,6 +1,6 @@
 // CSS
 import '@/styles/globals.scss';
-import 'instantsearch.css/themes/satellite-min.css';
+// import 'instantsearch.css/themes/satellite-min.css';
 
 // Context Provider
 import ContextProvider from '@/context/context-provider';

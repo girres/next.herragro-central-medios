@@ -12,6 +12,12 @@
     @apply hover:bg-yellow-1 hover:text-black hover:border-black;
 }
 
+.btn-yellow-circle {
+    @apply btn bg-black border-yellow-1 text-yellow-1 btn-md btn-circle;
+    @apply uppercase font-medium;
+    @apply hover:bg-yellow-1 hover:text-black hover:border-black;
+}
+
 // Basics
 @import "./font.scss";
 
