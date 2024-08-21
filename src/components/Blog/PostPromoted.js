@@ -10,7 +10,8 @@ const Component = ({ posts = [] }) => {
     <div className='block-promoted'>
       <div className='mb-10 flex items-center justify-between'>
         <div className='uppercase'>
-          <h2 className='fontExtraB'>Blog: Recientes</h2>
+          <h2 className='fontExtraB'>Blog</h2>
+          <p className='text-gray-500 text-xs'>Últimos posts</p>
         </div>
         <div>
           <Link href='/blog' className='btn-yellow'>
