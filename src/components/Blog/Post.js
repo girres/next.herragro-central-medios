@@ -15,7 +15,8 @@ const Post = ({ data = {}, reverse = 0 }) => {
   } = attributes || {};
 
   const authorData = autor?.data?.attributes || {};
-  const authorImage = authorData?.image?.data?.attributes || {};
+  // const authorImage = authorData?.image?.data?.attributes || {};
+  const image = attributes?.image?.data?.attributes || {};
 
   if (!id) {
     return null;
@@ -27,8 +28,8 @@ const Post = ({ data = {}, reverse = 0 }) => {
         <div className='wrapper'>
           <div className='image'>
             <Image
-              src={authorImage.url}
-              alt={authorData.name}
+              src={image.url}
+              alt={title}
               fill
               style={{
                 objectFit: 'cover',

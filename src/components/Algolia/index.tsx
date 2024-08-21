@@ -199,7 +199,8 @@ export default function Component() {
             placeholder='Busca archivos por nombre, producto o palabra clave.'
             classNames={{
               input: 'input',
-              submit: 'search-bar-submit',
+              submit: 'hidden',
+              reset: 'hidden',
             }}
           />
         </div>

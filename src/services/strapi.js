@@ -28,3 +28,29 @@ export async function getPostsPromoted() {
     .then((res) => res?.data?.data || []);
   return response;
 }
+
+export async function getPostBySlug(slug = '') {
+  const response = await apiRest
+    .get(`/blogs?filters[slug]=${slug}&populate=deep`)
+    .then((res) => res?.data?.data?.[0] || {})
+    .then((res) => {
+      return {
+        id: res?.id,
+        ...(res?.attributes ?? {}),
+      };
+    });
+  return response;
+}
+
+export async function getAssetBySlug(slug = '') {
+  const response = await apiRest
+    .get(`/assets?filters[slug]=${slug}&populate=*`)
+    .then((res) => res?.data?.data?.[0] || {})
+    .then((res) => {
+      return {
+        id: res?.id,
+        ...(res?.attributes ?? {}),
+      };
+    });
+  return response;
+}

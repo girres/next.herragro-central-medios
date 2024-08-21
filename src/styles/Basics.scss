@@ -49,3 +49,18 @@ h6 {
 .main-content {
     @apply min-h-screen pb-20;
 }
+
+div.ckeditor {
+    img {
+        @apply mx-auto rounded;
+    }
+
+    p {
+        @apply font-light;
+    }
+
+    b,
+    strong {
+        @apply font-medium;
+    }
+}
