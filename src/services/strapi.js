@@ -20,6 +20,13 @@ export const apiGraphql = axios.create({
   },
 });
 
+export async function getPosts() {
+  const response = await apiRest
+    .get('/blogs?populate=deep')
+    .then((res) => res?.data?.data || []);
+  return response;
+}
+
 export async function getPostsPromoted() {
   const response = await apiRest
     .get(

@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 
 // Services
 import { getPostBySlug } from '@/services/strapi';
@@ -23,6 +24,17 @@ export default async function Page(props) {
   return (
     <main className='main-content'>
       <div className='container py-5'>
+        <div className='breadcrumbs text-xs text-gray-500'>
+          <ul>
+            <li>
+              <Link href='/'>Inicio</Link>
+            </li>
+            <li>
+              <Link href='/blog'>Blog</Link>
+            </li>
+            <li>{data?.title}</li>
+          </ul>
+        </div>
         {image?.url && (
           <Image
             src={image.url}
