@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 // Services
@@ -23,6 +24,17 @@ export default async function Page(props) {
   return (
     <main className='main-content'>
       <div className='container'>
+        <div className='breadcrumbs text-xs text-gray-500'>
+          <ul>
+            <li>
+              <Link href='/'>Inicio</Link>
+            </li>
+            <li>
+              <Link href='/asset'>Recursos</Link>
+            </li>
+            <li>{data.name}</li>
+          </ul>
+        </div>
         <h1>{data?.name ?? '--'}</h1>
         <p>Última actualización: {data?.publishedAt ?? '--'}</p>
         <p>{data?.description ?? '--'}</p>
