@@ -41,7 +41,9 @@ const Post = ({ data = {}, reverse = 0 }) => {
           <div className='content'>
             <p className='date'>{`Publicado el ${new Date(publishedAt).toLocaleDateString()}`}</p>
             <h3 className='title'>{title}</h3>
-            {authorData?.name && <p className='author'>{authorData.name}</p>}
+            {authorData?.name && (
+              <p className='author'>Por {authorData.name}</p>
+            )}
             {summary && <p className='summary'>{summary}</p>}
             <div className='button'>
               <span>Ver Más</span>
