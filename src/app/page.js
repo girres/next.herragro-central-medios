@@ -8,6 +8,9 @@ import { getPostsPromoted } from '@/services/strapi';
 import Algolia from '@/components/Algolia';
 import PostPromoted from '@/components/Blog/PostPromoted';
 
+// Revalidate time for the page // 10 minutes
+export const revalidate = 600;
+
 export default async function Home() {
   const posts = await getPostsPromoted();
 
