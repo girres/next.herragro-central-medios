@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Post from '@/components/Blog/Post';
 
 const Component = ({ posts = [] }) => {
@@ -7,8 +8,15 @@ const Component = ({ posts = [] }) => {
 
   return (
     <div className='block-promoted'>
-      <div className='mb-10 uppercase'>
-        <h2 className='fontExtraB'>Blog</h2>
+      <div className='mb-10 flex items-center justify-between'>
+        <div className='uppercase'>
+          <h2 className='fontExtraB'>Blog</h2>
+        </div>
+        <div>
+          <Link href='/blog' className='btn-yellow'>
+            Ver todos los posts
+          </Link>
+        </div>
       </div>
       <div className='post-items'>
         {posts.map((post, index) => (
