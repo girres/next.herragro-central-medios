@@ -100,14 +100,15 @@ function Hit({ hit }: HitProps) {
     hasImage = false,
     hasDocument = false,
     slug = '/',
-    published = new Date(),
+    // published = new Date(),
+    updated = new Date(),
   } = hit;
 
   return (
     <div className='result-item grid grid-cols-2'>
       <div className='left'>
         <div className='date-published'>
-          Publicado el {new Date(published).toLocaleDateString()}
+          Actualizado el {new Date(updated).toLocaleDateString()}
         </div>
         <div className='title'>
           <Highlight attribute='name' hit={hit} />
