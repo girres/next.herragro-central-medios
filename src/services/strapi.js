@@ -51,7 +51,7 @@ export async function getPostBySlug(slug = '') {
 
 export async function getAssetBySlug(slug = '') {
   const response = await apiRest
-    .get(`/assets?filters[slug]=${slug}&populate=*`)
+    .get(`/assets?filters[slug]=${slug}&populate[assets][populate]=*`)
     .then((res) => res?.data?.data?.[0] || {})
     .then((res) => {
       return {

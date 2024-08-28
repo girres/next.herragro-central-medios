@@ -2,6 +2,9 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 
+// Components
+import { TitleBlog } from '@/components/Titles';
+
 // Services
 import { getPostBySlug } from '@/services/strapi';
 
@@ -19,7 +22,7 @@ export default async function Page(props) {
     return notFound();
   }
 
-  console.log('🚀 ~ Page ~ POST:', data);
+  console.log('🚀 ~ Page ~ POST:', authorData);
 
   return (
     <main className='main-content'>
@@ -45,15 +48,11 @@ export default async function Page(props) {
           />
         )}
         <div className='max-w-[700px] mx-auto'>
-          <h1 className='uppercase'>{data?.title ?? '---'}</h1>
-          {authorData?.name && (
-            <p className='font-medium text-lg text-gray-600 my-1'>
-              Por {authorData.name} / {authorData.position}
-            </p>
-          )}
-          <p className='text-xs text-gray-500 my-1'>
-            Última actualización: {data?.updatedAt ?? '--'}
-          </p>
+          <TitleBlog
+            title={data?.title}
+            date={data.updatedAt}
+            author={authorData}
+          />
           <div
             className='ckeditor description py-10 text-base'
             dangerouslySetInnerHTML={{ __html: data?.description || '' }}
