@@ -16,6 +16,7 @@ export default async function Home() {
 
   return (
     <main className='main-content'>
+      <h1 className='hidden'>Central Virtual Herragro</h1>
       <div className='hero min-h-screen relative'>
         <div className='h-full w-full relative'>
           <Image
