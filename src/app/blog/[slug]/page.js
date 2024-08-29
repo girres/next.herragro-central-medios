@@ -8,6 +8,29 @@ import { TitleBlog } from '@/components/Titles';
 // Services
 import { getPostBySlug } from '@/services/strapi';
 
+export async function generateMetadata({ params }, parent) {
+  const { slug = '' } = params || {};
+  const data = await getPostBySlug(slug);
+  const { summary = '' } = data || {};
+
+  // Image
+  const image = data?.image?.data?.attributes || {};
+
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: `${data.title} | Central Virtual Herragro`,
+    description: summary.substring(0, 150),
+    openGraph: {
+      images: [image.url, ...previousImages],
+    },
+    alternates: {
+      canonical: `${process.env?.SITE_URL || 'http://localhost:3000'}/blog/${slug}`,
+    },
+  };
+}
+
 export default async function Page(props) {
   const { slug = '' } = props?.params || {};
   const data = await getPostBySlug(slug);
@@ -21,8 +44,6 @@ export default async function Page(props) {
   if (!data?.id) {
     return notFound();
   }
-
-  console.log('🚀 ~ Page ~ POST:', authorData);
 
   return (
     <main className='main-content'>

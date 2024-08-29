@@ -8,6 +8,20 @@ import { AssetCard } from '@/components/Assets';
 // Services
 import { getAssetBySlug } from '@/services/strapi';
 
+export async function generateMetadata({ params }) {
+  const { slug = '' } = params || {};
+  const data = await getAssetBySlug(slug);
+
+  return {
+    title: `${data.name} | Central Virtual Herragro`,
+    description:
+      'Accede a Central Virtual de Herragro, tu plataforma para distribución de contenidos digitales: catálogos, manuales y recursos exclusivos',
+    alternates: {
+      canonical: `${process.env?.SITE_URL || 'http://localhost:3000'}/asset/${slug}`,
+    },
+  };
+}
+
 export default async function Page(props) {
   const { slug = '' } = props?.params || {};
   const data = await getAssetBySlug(slug);
