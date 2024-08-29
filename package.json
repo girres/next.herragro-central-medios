@@ -19,6 +19,7 @@
     "next": "^14.2.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-file-icon": "^1.5.0",
     "react-hot-toast": "^2.4.1",
     "react-instantsearch": "7.13.0"
   },

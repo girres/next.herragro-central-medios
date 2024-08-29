@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { FileIcon, defaultStyles } from 'react-file-icon';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/solid';
 
 const Icon = ({ type }: { type: string }) => {
@@ -24,76 +25,113 @@ const Icon = ({ type }: { type: string }) => {
   ) : null;
 };
 
-const Mime = ({ type }: { type: string }) => {
-  let src = null;
-
-  switch (type) {
-    case 'application/pdf':
-      src = '/images/pdfIcon.png';
-      break;
-  }
-
-  return src ? (
-    <Image src={src} alt='type' width={50} height={50} quality={60} />
-  ) : null;
-};
-
-const ContentVideos = ({ data = [] }: { data: Object[] }) => {
+const ContentVideos = ({
+  data = [],
+  links = [],
+}: {
+  data: Object[];
+  links: Object[];
+}) => {
   return (
     <div className='grid grid-cols-1 gap-2'>
-      {data.map((item, index) => (
-        <div
-          key={index}
-          className='relative rounded bg-gray-100 flex items-center justify-between border-2 border-gray-300 p-2'
-        >
-          <p>{item?.attributes?.name ?? '---'}</p>
-          <div className='flex items-center'>
-            <Mime type={item?.attributes?.mime ?? null} />
-            <Link
-              href={item?.attributes?.url ?? '#'}
-              rel='noopener noreferrer'
-              target='_blank'
-              className='btn btn-circle ml-4'
-            >
-              <ArrowDownTrayIcon className='h-6 w-6' />
-            </Link>
+      {data.map((item, index) => {
+        const ext = item.attributes.ext.toLowerCase().replace('.', '');
+        return (
+          <div
+            key={index}
+            className='relative rounded bg-gray-100 lg:flex items-center justify-between border-2 border-gray-300'
+          >
+            <p className='p-2 text-center lg:text-left'>
+              {item?.attributes?.name ?? '---'}
+            </p>
+            <div className='flex items-center justify-between lg:justify-center bg-gray-200 p-2'>
+              <div className='w-8'>
+                <FileIcon extension={ext} {...defaultStyles[ext]} />
+              </div>
+              <Link
+                href={item?.attributes?.url ?? '#'}
+                rel='noopener noreferrer'
+                target='_blank'
+                className='btn btn-circle ml-4'
+              >
+                <ArrowDownTrayIcon className='h-6 w-6' />
+              </Link>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
+      {links.map((item, index) => {
+        return (
+          <div
+            key={index}
+            className='relative rounded bg-gray-100 lg:flex items-center justify-between border-2 border-gray-300'
+          >
+            <p className='p-2 text-center lg:text-left'>{item.label}</p>
+            <div className='flex items-center justify-center bg-gray-200 p-2'>
+              <Link
+                href={item.url}
+                rel='noopener noreferrer'
+                target='_blank'
+                className='btn btn-circle'
+              >
+                <Image
+                  src='/images/youtube.svg'
+                  alt='Youtube'
+                  height='200'
+                  width='200'
+                  className='h-8 w-8'
+                />
+              </Link>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };
 
 const ContentImages = ({ data = [] }: { data: Object[] }) => {
   return (
-    <div className='grid grid-cols-2 lg:grid-cols-5 gap-2'>
-      {data.map((item, index) => (
-        <div
-          key={index}
-          className='relative rounded bg-gray-100 flex items-center justify-center border-2 border-gray-300 p-3'
-        >
-          <Image
-            src={item?.attributes?.url}
-            alt={item?.attributes?.alt}
-            width={item?.attributes?.width ?? 200}
-            height={item?.attributes?.height ?? 200}
-            quality={60}
-          />
-          <Link
-            className='btn btn-circle absolute bottom-2 right-2 z-10'
-            href={item?.attributes?.url ?? '#'}
-            rel='noopener noreferrer'
-            target='_blank'
+    <div className='grid grid-cols-2 lg:grid-cols-4 gap-2'>
+      {data.map((item, index) => {
+        const ext = item.attributes.ext.toLowerCase().replace('.', '');
+        return (
+          <div
+            key={index}
+            className='relative rounded bg-gray-100 border-2 border-gray-300'
           >
-            <ArrowDownTrayIcon className='h-6 w-6' />
-          </Link>
-          <div className='bg-yellow-1/40 text-gray-600 absolute top-0 left-0 right-0 w-full text-left p-2 text-xs'>
-            <span className=''>{`${item?.attributes?.mime}`}</span>
-            <span>{` = `}</span>
-            <span>{`${item?.attributes?.height} x ${item?.attributes?.width}`}</span>
+            {/* Image Container */}
+            <div className='box w-full h-[200px] flex items-center justify-center p-3'>
+              <Image
+                src={item?.attributes?.url}
+                alt={item?.attributes?.alt ?? index}
+                width={item?.attributes?.width ?? 200}
+                height={item?.attributes?.height ?? 200}
+                quality={60}
+              />
+            </div>
+            {/* Legend */}
+            <div className='bg-gray-200 text-gray-800 w-full text-left p-2 text-xs flex items-center justify-between'>
+              <div className='w-8 mr-3'>
+                <FileIcon extension={ext} {...defaultStyles[ext]} />
+              </div>
+              <span>{`${item?.attributes?.height} x ${item?.attributes?.width}`}</span>
+              {/* Action Button */}
+              <div className='action'>
+                <Link
+                  className='btn btn-circle'
+                  href={`${item.attributes.url}?download=true`}
+                  rel='noopener noreferrer'
+                  target='_blank'
+                  download
+                >
+                  <ArrowDownTrayIcon className='h-6 w-6' />
+                </Link>
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
@@ -101,25 +139,32 @@ const ContentImages = ({ data = [] }: { data: Object[] }) => {
 const ContentDocuments = ({ data = [] }: { data: Object[] }) => {
   return (
     <div className='grid grid-cols-1 gap-2'>
-      {data.map((item, index) => (
-        <div
-          key={index}
-          className='relative rounded bg-gray-100 flex items-center justify-between border-2 border-gray-300 p-2'
-        >
-          <p>{item?.attributes?.name ?? '---'}</p>
-          <div className='flex items-center'>
-            <Mime type={item?.attributes?.mime ?? null} />
-            <Link
-              href={item?.attributes?.url ?? '#'}
-              rel='noopener noreferrer'
-              target='_blank'
-              className='btn btn-circle ml-4'
-            >
-              <ArrowDownTrayIcon className='h-6 w-6' />
-            </Link>
+      {data.map((item, index) => {
+        const ext = item.attributes.ext.toLowerCase().replace('.', '');
+        return (
+          <div
+            key={index}
+            className='relative rounded bg-gray-100 lg:flex items-center justify-between border-2 border-gray-300'
+          >
+            <p className='p-2 text-center lg:text-left'>
+              {item?.attributes?.name ?? '---'}
+            </p>
+            <div className='flex items-center justify-between lg:justify-center bg-gray-200 p-2'>
+              <div className='w-8'>
+                <FileIcon extension={ext} {...defaultStyles[ext]} />
+              </div>
+              <Link
+                href={item?.attributes?.url ?? '#'}
+                rel='noopener noreferrer'
+                target='_blank'
+                className='btn btn-circle ml-4'
+              >
+                <ArrowDownTrayIcon className='h-6 w-6' />
+              </Link>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
@@ -129,7 +174,7 @@ const Content = ({ type, data = [] }: { type: string; data: object[] }) => {
 
   switch (type) {
     case 'assets.videos':
-      Comp = <ContentVideos data={data.videos.data} />;
+      Comp = <ContentVideos data={data.videos.data} links={data.videoLinks} />;
       break;
 
     case 'assets.images':
@@ -154,10 +199,10 @@ export const AssetCard = ({ data = {} }: { data: object }) => {
           </div>
           <h2>{data.name}</h2>
         </div>
-        <button className='bg-red-1 text-white btn btn-xs border-none'>
+        {/* <button className='bg-red-1 text-white btn btn-xs border-none'>
           Descargar
           <ArrowDownTrayIcon className='h-4 w-4' />
-        </button>
+        </button> */}
       </div>
       <div className='divider' />
       {data?.description && <p className='desc'>{data.description}</p>}
