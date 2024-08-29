@@ -16,7 +16,7 @@
 
         .image {
             @apply effect;
-            @apply col-span-5 min-h-[250px] h-full relative;
+            @apply col-span-12 lg:col-span-5 min-h-[250px] h-full relative;
 
             img {
                 @apply effect;
@@ -24,7 +24,7 @@
         }
 
         .content {
-            @apply col-span-7 p-5 lg:p-10 text-white min-h-[300px] flex flex-col justify-center;
+            @apply col-span-12 lg:col-span-7 p-5 lg:p-10 text-white min-h-[300px] flex flex-col justify-center;
 
             .date {
                 @apply text-[10px] text-gray-300;
@@ -51,11 +51,11 @@
     &.reverse {
         .wrapper {
             .image {
-                @apply order-2;
+                @apply lg:order-2;
             }
 
             .content {
-                @apply order-1;
+                @apply lg:order-1;
             }
         }
     }
