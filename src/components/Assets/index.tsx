@@ -34,58 +34,62 @@ const ContentVideos = ({
 }) => {
   return (
     <div className='grid grid-cols-1 gap-2'>
-      {data.map((item, index) => {
-        const ext = item.attributes.ext.toLowerCase().replace('.', '');
-        return (
-          <div
-            key={index}
-            className='relative rounded bg-gray-100 lg:flex items-center justify-between border-2 border-gray-300'
-          >
-            <p className='p-2 text-center lg:text-left'>
-              {item?.attributes?.name ?? '---'}
-            </p>
-            <div className='flex items-center justify-between lg:justify-center bg-gray-200 p-2'>
-              <div className='w-8'>
-                <FileIcon extension={ext} {...defaultStyles[ext]} />
+      {data &&
+        data.length > 0 &&
+        data.map((item, index) => {
+          const ext = item.attributes.ext.toLowerCase().replace('.', '');
+          return (
+            <div
+              key={index}
+              className='relative rounded bg-gray-100 lg:flex items-center justify-between border-2 border-gray-300'
+            >
+              <p className='p-2 text-center lg:text-left'>
+                {item?.attributes?.name ?? '---'}
+              </p>
+              <div className='flex items-center justify-between lg:justify-center bg-gray-200 p-2'>
+                <div className='w-8'>
+                  <FileIcon extension={ext} {...defaultStyles[ext]} />
+                </div>
+                <Link
+                  href={item?.attributes?.url ?? '#'}
+                  rel='noopener noreferrer'
+                  target='_blank'
+                  className='btn btn-circle ml-4'
+                >
+                  <ArrowDownTrayIcon className='h-6 w-6' />
+                </Link>
               </div>
-              <Link
-                href={item?.attributes?.url ?? '#'}
-                rel='noopener noreferrer'
-                target='_blank'
-                className='btn btn-circle ml-4'
-              >
-                <ArrowDownTrayIcon className='h-6 w-6' />
-              </Link>
             </div>
-          </div>
-        );
-      })}
-      {links.map((item, index) => {
-        return (
-          <div
-            key={index}
-            className='relative rounded bg-gray-100 lg:flex items-center justify-between border-2 border-gray-300'
-          >
-            <p className='p-2 text-center lg:text-left'>{item.label}</p>
-            <div className='flex items-center justify-center bg-gray-200 p-2'>
-              <Link
-                href={item.url}
-                rel='noopener noreferrer'
-                target='_blank'
-                className='btn btn-circle'
-              >
-                <Image
-                  src='/images/youtube.svg'
-                  alt='Youtube'
-                  height='200'
-                  width='200'
-                  className='h-8 w-8'
-                />
-              </Link>
+          );
+        })}
+      {links &&
+        links.length > 0 &&
+        links.map((item, index) => {
+          return (
+            <div
+              key={index}
+              className='relative rounded bg-gray-100 lg:flex items-center justify-between border-2 border-gray-300'
+            >
+              <p className='p-2 text-center lg:text-left'>{item.label}</p>
+              <div className='flex items-center justify-center bg-gray-200 p-2'>
+                <Link
+                  href={item.url}
+                  rel='noopener noreferrer'
+                  target='_blank'
+                  className='btn btn-circle'
+                >
+                  <Image
+                    src='/images/youtube.svg'
+                    alt='Youtube'
+                    height='200'
+                    width='200'
+                    className='h-8 w-8'
+                  />
+                </Link>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
     </div>
   );
 };
@@ -101,13 +105,18 @@ const ContentImages = ({ data = [] }: { data: Object[] }) => {
             className='relative rounded bg-gray-100 border-2 border-gray-300'
           >
             {/* Image Container */}
-            <div className='box w-full h-[200px] flex items-center justify-center p-3'>
+            <div className='relative box w-full h-[200px]'>
               <Image
-                src={item?.attributes?.url}
+                src={
+                  item?.attributes?.formats?.small?.url ?? item.attributes.url
+                }
                 alt={item?.attributes?.alt ?? index}
-                width={item?.attributes?.width ?? 200}
-                height={item?.attributes?.height ?? 200}
-                quality={60}
+                fill
+                style={{
+                  objectFit: 'contain',
+                  objectPosition: 'center',
+                  padding: '10px',
+                }}
               />
             </div>
             {/* Legend */}
