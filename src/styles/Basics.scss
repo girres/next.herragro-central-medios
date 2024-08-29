@@ -64,3 +64,13 @@ div.ckeditor {
         @apply font-medium;
     }
 }
+
+form input.input,
+form select.select {
+
+    // Set min height for input fields only in mobile view
+    @media screen and (max-width: 1024px) {
+        @apply min-h-[55px] !important;
+        @apply text-[16px] !important;
+    }
+}
