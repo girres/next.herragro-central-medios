@@ -8,6 +8,7 @@ import ContextProvider from '@/context/context-provider';
 // Components
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { LatestPosts } from '@/components/Instagram';
 
 export const metadata = () => {
   return {
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
         <ContextProvider>
           <Header />
           {children}
+          <LatestPosts />
           <Footer />
         </ContextProvider>
       </body>
