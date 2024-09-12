@@ -1,3 +1,17 @@
 header {
     @apply bg-black;
+
+    .social {
+        .item {
+            svg {
+                @apply fill-white w-6 h-6 lg:w-8 lg:h-8;
+            }
+
+            &:hover {
+                svg {
+                    @apply fill-yellow-1;
+                }
+            }
+        }
+    }
 }
