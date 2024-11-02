@@ -1,14 +1,13 @@
+import { GoogleAnalytics } from '@next/third-parties/google';
+
 // CSS
 import '@/styles/globals.scss';
-// import 'instantsearch.css/themes/satellite-min.css';
-
-// Context Provider
-import ContextProvider from '@/context/context-provider';
 
 // Components
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { LatestPosts } from '@/components/Instagram';
+
+// Google Analytics TAG
+const GTAG = process.env?.NEXT_PUBLIC_GA_ID_LANDING || null;
 
 export const metadata = () => {
   return {
@@ -37,13 +36,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang='es'>
       <body>
-        <ContextProvider>
-          <Header />
-          {children}
-          <LatestPosts />
-          <Footer />
-        </ContextProvider>
+        <Header />
+        {children}
       </body>
+      {GTAG && <GoogleAnalytics gaId={GTAG} />}
     </html>
   );
 }
