@@ -8,10 +8,10 @@ const Comp = () => {
         <div className='main-logo max-w-[150px] lg:max-w-[200px]'>
           <Link href='/'>
             <Image
-              src='/images/logo-short.png'
+              src='/images/v2/logo.png'
               alt='Central Virtual'
-              width={50}
-              height={50}
+              width={100}
+              height={100}
               priority={true}
               quality={100}
             />

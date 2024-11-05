@@ -41,7 +41,7 @@
 
         .text {
             @apply effect;
-            @apply m-0 text-xs font-medium mt-2;
+            @apply text-red-1 m-0 text-xs font-bold mt-2;
         }
 
         &.active {

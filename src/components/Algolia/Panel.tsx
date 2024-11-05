@@ -24,10 +24,10 @@ export function Panel({
         <div className='facet-content'>
           <div className='image'>
             <Image
-              src={`/images/${type}.png`}
+              src={`/images/v2/${type}.png`}
               alt={type}
-              width={100}
-              height={100}
+              width={150}
+              height={150}
               quality={100}
             />
           </div>

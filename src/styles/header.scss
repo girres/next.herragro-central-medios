@@ -1,10 +1,10 @@
 header {
-    @apply bg-black;
+    @apply bg-white;
 
     .social {
         .item {
             svg {
-                @apply fill-white w-6 h-6 lg:w-8 lg:h-8;
+                @apply fill-red-1 w-6 h-6 lg:w-8 lg:h-8;
             }
 
             &:hover {

@@ -38,13 +38,13 @@ const Logo = () => {
   return (
     <header className='py-4'>
       <div className='container flex items-center justify-between'>
-        <div className='main-logo max-w-[150px] lg:max-w-[200px]'>
+        <div className='main-logo max-w-[100px] lg:max-w-[150px]'>
           <Link href='/'>
             <Image
-              src='/images/logo.png'
+              src='/images/v2/logo.png'
               alt='Central Virtual'
-              width={200}
-              height={200}
+              width={900}
+              height={400}
               priority={true}
               quality={100}
             />
@@ -87,7 +87,7 @@ const Logo = () => {
               target='_blank'
             >
               <Image
-                src='/images/herragro.png'
+                src='/images/v2/herragro.png'
                 alt='Central Virtual'
                 width={80}
                 height={80}

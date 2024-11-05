@@ -195,15 +195,20 @@ export default function Component() {
       <InstantSearch searchClient={client} indexName={ALGOLIA_INDEX_NAME}>
         <Configure filters={filter} />
         <div className='search-container'>
-          <SearchBox
-            autoFocus
-            placeholder='Busca archivos por nombre, producto o palabra clave.'
-            classNames={{
-              input: 'input',
-              submit: 'hidden',
-              reset: 'hidden',
-            }}
-          />
+          <div className='text-center uppercase max-w-[600px] mx-auto py-10 font-bold'>
+            <h2 className='text-4xl'>Descubre todo lo que hace única nuestra marca</h2>
+          </div>
+          <div className='max-w-[700px] mx-auto'>
+            <SearchBox
+              autoFocus
+              placeholder='Busca archivos por nombre, producto o palabra clave.'
+              classNames={{
+                input: 'input',
+                submit: 'hidden',
+                reset: 'hidden',
+              }}
+            />
+          </div>
         </div>
         <div className='filters-container'>
           <Panel
