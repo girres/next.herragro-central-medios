@@ -9,7 +9,7 @@ const Comp = () => {
           <Link href='/'>
             <Image
               src='/images/v2/logo.png'
-              alt='Central Virtual'
+              alt='Hub'
               width={100}
               height={100}
               priority={true}
@@ -42,7 +42,7 @@ const Comp = () => {
             >
               <Image
                 src='/images/herragro.png'
-                alt='Central Virtual'
+                alt='Hub'
                 width={80}
                 height={80}
                 priority={true}

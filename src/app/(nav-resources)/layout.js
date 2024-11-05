@@ -16,9 +16,9 @@ const GTAG = process.env?.NEXT_PUBLIC_GA_ID_RESOURCES || null;
 
 export const metadata = () => {
   return {
-    title: 'Central Virtual Herragro | Distribución de Contenidos Digitales',
+    title: 'Hub Herragro | Distribución de Contenidos Digitales',
     description:
-      'Accede a Central Virtual de Herragro, tu plataforma para distribución de contenidos digitales: catálogos, manuales y recursos exclusivos',
+      'Accede a Hub de Herragro, tu plataforma para distribución de contenidos digitales: catálogos, manuales y recursos exclusivos',
     openGraph: {
       images: '/images/SEO_CentralVirtual.jpg',
     },

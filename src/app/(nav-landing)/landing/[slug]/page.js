@@ -23,7 +23,7 @@ export async function generateMetadata({ params }, parent) {
   const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: `${metaTitle} | Central Virtual Herragro`,
+    title: `${metaTitle} | Hub Herragro`,
     description: metaDescription.substring(0, 150),
     openGraph: {
       images: [image.url, ...previousImages],

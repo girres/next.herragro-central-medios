@@ -42,7 +42,7 @@ const Logo = () => {
           <Link href='/'>
             <Image
               src='/images/v2/logo.png'
-              alt='Central Virtual'
+              alt='Hub'
               width={900}
               height={400}
               priority={true}
@@ -88,7 +88,7 @@ const Logo = () => {
             >
               <Image
                 src='/images/v2/herragro.png'
-                alt='Central Virtual'
+                alt='Hub'
                 width={80}
                 height={80}
                 priority={true}

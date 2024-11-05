@@ -13,9 +13,9 @@ export async function generateMetadata({ params }) {
   const data = await getAssetBySlug(slug);
 
   return {
-    title: `${data.name} | Central Virtual Herragro`,
+    title: `${data.name} | Hub Herragro`,
     description:
-      'Accede a Central Virtual de Herragro, tu plataforma para distribución de contenidos digitales: catálogos, manuales y recursos exclusivos',
+      'Accede a Hub de Herragro, tu plataforma para distribución de contenidos digitales: catálogos, manuales y recursos exclusivos',
     alternates: {
       canonical: `${process.env?.SITE_URL || 'http://localhost:3000'}/asset/${slug}`,
     },
