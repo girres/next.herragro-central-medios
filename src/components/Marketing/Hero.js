@@ -17,6 +17,15 @@ export default function HeroBannerTop({
   social = [],
   gtmReady = false,
   name = null,
+  ui = {
+    bg: '#fae700',
+    title: '#000',
+    description: '#000',
+    ctaBg: '#000',
+    ctaText: '#fff',
+    socialBg: '#000',
+    socialText: '#fff',
+  },
 }) {
   function onClick(data = {}) {
     if (data?.url) {
@@ -42,7 +51,10 @@ export default function HeroBannerTop({
   }
 
   return (
-    <div className='w-full max-w-[1520px] mx-auto p-5'>
+    <div
+      className='w-full max-w-[1520px] mx-auto p-5'
+      style={{ backgroundColor: ui?.bg }}
+    >
       {/* Background Image */}
       <Image
         src={backgroundImage}
@@ -57,11 +69,15 @@ export default function HeroBannerTop({
           {/* Left Content */}
           <div className='w-full lg:w-1/2 flex flex-col justify-between'>
             <div className='space-y-6'>
-              <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold leading-tight'>
+              <h1
+                className='text-4xl md:text-5xl lg:text-6xl font-bold leading-tight'
+                style={{ color: ui.title }}
+              >
                 {title}
               </h1>
               <div
                 className='text-xl md:text-2xl'
+                style={{ color: ui.description }}
                 dangerouslySetInnerHTML={{ __html: description }}
               ></div>
               <div className='flex flex-wrap gap-4'>
@@ -72,7 +88,12 @@ export default function HeroBannerTop({
                       onClick={() => onClick(button)}
                       key={index}
                       size='lg'
-                      className='btn btn-primary'
+                      className='btn'
+                      style={{
+                        backgroundColor: ui.ctaBg,
+                        borderColor: ui.ctaBg,
+                        color: ui.ctaText,
+                      }}
                     >
                       {button.label}
                     </button>
@@ -87,6 +108,11 @@ export default function HeroBannerTop({
                   href={item.url}
                   target='_blank'
                   rel='noreferrer noopener'
+                  style={{
+                    backgroundColor: ui.socialBg,
+                    borderColor: ui.socialBg,
+                    color: ui.socialText,
+                  }}
                 >
                   {item.type === 'FACEBOOK' && (
                     <CiFacebook className='h-5 w-5' />

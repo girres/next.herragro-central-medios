@@ -57,6 +57,7 @@ export default async function Page(props) {
           gtmReady={data?.gtm?.code || false}
           name={data?.name || null}
           social={hero?.social || []}
+          ui={data?.ui || {}}
         />
       </main>
     </>
