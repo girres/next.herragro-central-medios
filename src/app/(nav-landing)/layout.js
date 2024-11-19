@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
         <footer className='pt-20'>
           <div className='bg-[#ffd505]'>
             <div className='container'>
-              <div className='flex flex-col items-center justify-center py-10'>
+              <div className='flex items-center justify-center py-10 gap-10'>
                 <Image
                   src='/images/herragro-red.png'
                   alt='Herragro'

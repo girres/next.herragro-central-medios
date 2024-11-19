@@ -46,7 +46,7 @@ export default async function Page(props) {
   return (
     <>
       {data?.gtm?.code && <GoogleTagManager gtmId={data?.gtm?.code} />}
-      <main className='main-content'>
+      <main className='main-content-landing'>
         <h1 className='hidden'>{data.title}</h1>
         <Hero
           title={hero?.title || null}

@@ -25,8 +25,10 @@ export default function HeroBannerTop({
     ctaText: '#fff',
     socialBg: '#000',
     socialText: '#fff',
+    bgImage: {},
   },
 }) {
+  const imgBg = ui.bgImage?.data?.attributes?.url || null;
   function onClick(data = {}) {
     if (data?.url) {
       // Set Event to Google Analytics
@@ -89,8 +91,16 @@ export default function HeroBannerTop({
 
   return (
     <div
-      className='w-full max-w-[1520px] mx-auto min-h-screen'
-      style={{ backgroundColor: ui?.bg }}
+      className='w-full max-w-[1520px] mx-auto lg:min-h-screen'
+      style={
+        imgBg
+          ? {
+              background: `${ui?.bg || '#000'} url("${imgBg}")`,
+            }
+          : {
+              background: ui?.bg || '#000',
+            }
+      }
     >
       {/* Background Image */}
       <Image
@@ -151,7 +161,7 @@ export default function HeroBannerTop({
         </div>
         {/* bannerA */}
         {bannerA?.url && (
-          <div className='px-10 py-10 lg:py-0 mx-auto'>
+          <div className='lg:px-10 py-10 lg:py-0 mx-auto'>
             <Image
               src={bannerA.url}
               alt='Right Image'
