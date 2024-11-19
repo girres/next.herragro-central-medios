@@ -1,10 +1,7 @@
 import { GoogleAnalytics } from '@next/third-parties/google';
-
+import Image from 'next/image';
 // CSS
 import '@/styles/globals.scss';
-
-// Components
-import Header from '@/components/Header';
 
 // Google Analytics TAG
 const GTAG = process.env?.NEXT_PUBLIC_GA_ID_LANDING || null;
@@ -36,8 +33,29 @@ export default function RootLayout({ children }) {
   return (
     <html lang='es'>
       <body>
-        <Header />
         {children}
+        <footer className='pt-20'>
+          <div className='bg-[#ffd505]'>
+            <div className='container'>
+              <div className='flex flex-col items-center justify-center py-10'>
+                <Image
+                  src='/images/herragro-red.png'
+                  alt='Herragro'
+                  width={150}
+                  height={150}
+                  className='max-w-[100px] lg:max-w-[150px]'
+                />
+                <Image
+                  src='/images/QuedaDemostrado.png'
+                  alt='Herragro'
+                  width={150}
+                  height={150}
+                  className='max-w-[100px] lg:max-w-[150px]'
+                />
+              </div>
+            </div>
+          </div>
+        </footer>
       </body>
       {GTAG && <GoogleAnalytics gaId={GTAG} />}
     </html>

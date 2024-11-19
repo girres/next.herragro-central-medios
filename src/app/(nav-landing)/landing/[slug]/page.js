@@ -53,6 +53,7 @@ export default async function Page(props) {
           description={hero?.description || null}
           backgroundImage={hero?.backgroundImage?.data?.attributes?.url || null}
           image={hero?.image?.data?.attributes || null}
+          bannerA={data?.bannerA?.data?.attributes || null}
           cta={hero?.cta || null}
           gtmReady={data?.gtm?.code || false}
           name={data?.name || null}
