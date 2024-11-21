@@ -197,7 +197,7 @@ export default function Component() {
         <div className='search-container'>
           <div className='text-center uppercase max-w-[600px] mx-auto py-10 font-bold'>
             <h2 className='text-4xl'>
-              Descubre todo lo que hace única nuestra marca
+              Descubre todo lo que hace única a nuestra marca
             </h2>
           </div>
           <div className='max-w-[700px] mx-auto'>
