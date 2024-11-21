@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     <main className='main-content'>
       <h1 className='hidden'>HUB Herragro</h1>
-      <div className='relative w-full h-auto bg-[url("/images/v2/bg.jpg")] bg-no-repeat bg-cover bg-center'>
+      <div className='px-5 relative w-full h-auto bg-[url("/images/v2/bg.jpg")] bg-no-repeat bg-cover bg-center'>
         <Algolia />
       </div>
       <div className='container space-y-2'>

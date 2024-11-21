@@ -65,7 +65,7 @@
         @apply rounded-lg bg-gray-900;
 
         .image {
-            @apply transform scale-105;
+            @apply lg:transform lg:scale-105;
 
             img {
                 @apply rounded-lg;
