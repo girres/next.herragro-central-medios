@@ -61,16 +61,3 @@ export async function getAssetBySlug(slug = '') {
     });
   return response;
 }
-
-export async function getMarketingLandingBySlug(slug = '') {
-  const response = await apiRest
-    .get(`/marketing-landin-pages?filters[slug]=${slug}&populate=deep`)
-    .then((res) => res?.data?.data?.[0] || {})
-    .then((res) => {
-      return {
-        id: res?.id,
-        ...(res?.attributes ?? {}),
-      };
-    });
-  return response;
-}

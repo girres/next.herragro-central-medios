@@ -85,8 +85,8 @@ function Stats(props) {
 
   return (
     <div>
-      <p className='search-stats text-xs m-0'>
-        <strong>{nbHits}</strong>{' '}
+      <p className='search-stats m-0 text-lg text-center font-bold'>
+        <strong className='text-red-1'>{nbHits}</strong>{' '}
         {nbHits === 1 ? 'recurso encontrado' : 'recursos encontrados'}
       </p>
       <div className='divider mb-1 pb-1' />
@@ -196,7 +196,9 @@ export default function Component() {
         <Configure filters={filter} />
         <div className='search-container'>
           <div className='text-center uppercase max-w-[600px] mx-auto py-10 font-bold'>
-            <h2 className='text-4xl'>Descubre todo lo que hace única nuestra marca</h2>
+            <h2 className='text-4xl'>
+              Descubre todo lo que hace única nuestra marca
+            </h2>
           </div>
           <div className='max-w-[700px] mx-auto'>
             <SearchBox
