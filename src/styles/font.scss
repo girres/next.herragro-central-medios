@@ -1,4 +1,9 @@
 @font-face {
+    font-family: 'fontTitle';
+    src: url('./fonts/Anton/Anton-Regular.ttf');
+}
+
+@font-face {
     font-family: 'fontRegular';
     src: url('./fonts/Poppins/Poppins-Regular.ttf');
 }
@@ -21,6 +26,10 @@
 @font-face {
     font-family: 'fontExtraB';
     src: url('./fonts/Poppins/Poppins-Black.ttf');
+}
+
+.font-title {
+    font-family: "fontTitle";
 }
 
 .fontRegular,

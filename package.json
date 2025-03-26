@@ -27,6 +27,8 @@
     "react-social-media-embed": "^2.5.13"
   },
   "devDependencies": {
+    "@types/node": "22.13.13",
+    "@types/react": "19.0.12",
     "daisyui": "^4.12.10",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-next": "0.0.0",

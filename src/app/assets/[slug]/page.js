@@ -46,7 +46,7 @@ export default async function Page(props) {
             <Link href='/'>Inicio</Link>
           </li>
           <li>
-            <Link href='/asset'>Recursos</Link>
+            <Link href='/assets'>Todos los Recursos</Link>
           </li>
           <li>{data.name}</li>
         </ul>

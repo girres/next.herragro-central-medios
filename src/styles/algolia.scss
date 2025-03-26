@@ -1,16 +1,10 @@
-.algolia-block {
-    @apply py-20 relative;
-}
-
 .search-container {
-    @apply max-w-[800px] mx-auto;
-
     form {
         @apply h-auto w-auto bg-transparent;
     }
 
     .input {
-        @apply input-bordered input-lg font-light text-sm lg:rounded-full bg-white shadow w-full;
+        @apply input-bordered input-lg font-light text-sm bg-white shadow w-full;
         @apply min-h-[50px];
     }
 
@@ -22,11 +16,9 @@
 }
 
 .filters-container {
-    @apply flex items-center justify-center space-x-1 lg:space-x-5 py-10;
-
     .btn-facet {
         @apply effect;
-        @apply bg-white w-[100px] h-[80px] lg:w-[120px] lg:h-[120px] shadow-md;
+        @apply bg-white w-full shadow-md;
         @apply p-3 rounded-2xl border-2 border-white;
         @apply hover:shadow-xl;
 
@@ -41,7 +33,7 @@
 
         .text {
             @apply effect;
-            @apply text-red-1 m-0 text-xs font-bold mt-2;
+            @apply text-red-1 m-0 font-bold;
         }
 
         &.active {
@@ -59,55 +51,8 @@
         }
 
         .facet-content {
-            @apply flex items-center justify-center flex-col;
-        }
-    }
-}
-
-.results-container {
-
-    @apply max-w-[700px] mx-auto p-5;
-    @apply bg-white shadow-md rounded-md;
-
-    .hits-container {
-        @apply h-[250px] overflow-y-scroll;
-    }
-
-    .result-item {
-        @apply w-full relative bg-gray-100;
-        @apply p-5 my-1 rounded-md;
-
-        .title {
-            @apply fontBold text-2xl;
-        }
-
-        .tags {
-            @apply space-x-2 mt-2;
-        }
-
-        .categories {
-            @apply text-gray-500 text-xs font-light;
-        }
-
-        .content-tags {
-            @apply flex space-x-5;
-
-            img {
-                @apply w-[30px];
-            }
-        }
-
-        .left {
-            @apply col-span-2 lg:col-span-1;
-        }
-
-        .right {
-            @apply col-span-2 lg:col-span-1;
-            @apply flex items-center justify-between;
-        }
-
-        .date-published {
-            @apply text-[10px] font-light text-gray-500;
+            @apply flex items-center gap-3;
+            @apply flex-col lg:flex-row min-w-[100px];
         }
     }
 }

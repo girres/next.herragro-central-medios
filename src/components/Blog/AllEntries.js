@@ -20,7 +20,7 @@ const Component = ({ posts = [] }) => {
           </ul>
         </div>
         <div className='uppercase'>
-          <h1>Blog</h1>
+          <h1 className='font-title'>Blog</h1>
           <p className='text-gray-500 text-xs'>Todos los posts</p>
         </div>
       </div>

@@ -1,12 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import {
-  ChevronDoubleRightIcon,
-  ExclamationTriangleIcon,
-} from '@heroicons/react/24/solid';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
+import { FaArrowRight } from 'react-icons/fa';
 
 // Algolia
 import { liteClient as algoliasearch } from 'algoliasearch/lite';
@@ -22,8 +19,18 @@ import {
 } from 'react-instantsearch';
 import connectStats from 'instantsearch.js/es/connectors/stats/connectStats';
 
+// import { FaImage as IconImage } from 'react-icons/fa6';
+// import { HiDocumentText as IconDoc } from 'react-icons/hi2';
+// import { PiVideoFill as IconVideo } from 'react-icons/pi';
+
+import { IoMdImages as IconImage } from 'react-icons/io';
+import { IoDocumentTextOutline as IconDoc } from 'react-icons/io5';
+import { MdOutlineOndemandVideo as IconVideo } from 'react-icons/md';
+
 // Components
 import { Panel } from '@/components/Algolia/Panel';
+import { AssetTypeProps } from './Panel';
+import clsx from 'clsx';
 
 // Constants
 const ALGOLIA_INDEX_NAME = process.env.NEXT_PUBLIC_ALGOLIA_INDEX;
@@ -35,10 +42,43 @@ const client = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_API_KEY
 );
 
+type AssetGroupProps = {
+  video: boolean;
+  image: boolean;
+  document: boolean;
+};
+
 type HitProps = {
   hit: AlgoliaHit<{
     name: string;
   }>;
+};
+
+const AssetType = ({ type, active = false }: AssetTypeProps) => {
+  const size = 'size-6';
+  return (
+    <div className='text-gray-400 bg-gray-200 size-8 rounded flex items-center justify-center'>
+      {type === 'video' && (
+        <IconVideo className={clsx(size, active && 'text-red-1')} />
+      )}
+      {type === 'image' && (
+        <IconImage className={clsx(size, active && 'text-red-1')} />
+      )}
+      {type === 'document' && (
+        <IconDoc className={clsx(size, active && 'text-red-1')} />
+      )}
+    </div>
+  );
+};
+
+const AssetGroup = ({ video, image, document }: AssetGroupProps) => {
+  return (
+    <div className='flex items-center gap-3'>
+      <AssetType type='video' active={video} />
+      <AssetType type='image' active={image} />
+      <AssetType type='document' active={document} />
+    </div>
+  );
 };
 
 function NoResults() {
@@ -85,76 +125,53 @@ function Stats(props) {
 
   return (
     <div>
-      <p className='search-stats m-0 text-lg text-center font-bold'>
-        <strong className='text-red-1'>{nbHits}</strong>{' '}
+      <p className='search-stats my-5'>
+        <strong className='font-bold'>{nbHits}</strong>{' '}
         {nbHits === 1 ? 'recurso encontrado' : 'recursos encontrados'}
       </p>
-      <div className='divider mb-1 pb-1' />
+      <div className='divider' />
     </div>
   );
 }
 
-function Hit({ hit }: HitProps) {
+function CardItem({ hit }: HitProps) {
   const {
     hasVideo = false,
     hasImage = false,
     hasDocument = false,
     slug = '/',
-    // published = new Date(),
+    categories = [],
     updated = new Date(),
   } = hit;
 
   return (
-    <div className='result-item grid grid-cols-2'>
-      <div className='left'>
-        <div className='date-published'>
+    <div className='asset-result-item text-xs lg:flex gap-2 justify-between items-end p-5 my-1 rounded-md w-full relative bg-white'>
+      <div className='left lg:px-2 w-full lg:w-8/12'>
+        <div className='text-[10px] leading-[10px] font-light text-gray-500 mb-1'>
           Actualizado el {new Date(updated).toLocaleDateString()}
         </div>
-        <div className='title'>
+        <div className='fontBold text-2xl'>
           <Highlight attribute='name' hit={hit} />
         </div>
-        <div className='categories'>
-          <Highlight attribute='categories' hit={hit} separator=' / ' />
+        <div className='flex flex-wrap gap-2 mt-2'>
+          {categories?.map((cat) => (
+            <div
+              key={cat}
+              className='badge badge-outline text-[10px] leading-[10px] text-gray-700 border-gray-300 border'
+            >
+              {cat}
+            </div>
+          ))}
         </div>
       </div>
-      <div className='right'>
-        <div className='content-tags'>
-          {hasVideo && (
-            <div>
-              <Image
-                src='/images/video.png'
-                alt='Video'
-                width={100}
-                height={100}
-                quality={60}
-              />
-            </div>
-          )}
-          {hasImage && (
-            <div>
-              <Image
-                src='/images/image.png'
-                alt='Image'
-                width={100}
-                height={100}
-                quality={60}
-              />
-            </div>
-          )}
-          {hasDocument && (
-            <div>
-              <Image
-                src='/images/document.png'
-                alt='Document'
-                width={100}
-                height={100}
-                quality={60}
-              />
-            </div>
-          )}
-        </div>
-        <Link href={`/asset/${slug}`} className='btn-yellow-circle'>
-          <ChevronDoubleRightIcon className='w-4 h-4' />
+      <div className='right w-full lg:w-4/12 flex flex-col lg:items-end mt-4 lg:mt-0'>
+        <AssetGroup video={hasVideo} image={hasImage} document={hasDocument} />
+        <Link
+          href={`/assets/${slug}`}
+          className='btn bg-yellow-1 text-black mt-3 border-none btn-block btn-sm'
+        >
+          Ver
+          <FaArrowRight className='size-4' />
         </Link>
       </div>
     </div>
@@ -191,61 +208,64 @@ export default function Component() {
   }, [filterParts]);
 
   return (
-    <div className='algolia-block'>
+    <div className='search-page-container'>
       <InstantSearch searchClient={client} indexName={ALGOLIA_INDEX_NAME}>
         <Configure filters={filter} />
-        <div className='search-container'>
-          <div className='text-center uppercase max-w-[600px] mx-auto py-10 font-bold'>
-            <h2 className='text-4xl'>
-              Descubre todo lo que hace única a nuestra marca
-            </h2>
-          </div>
-          <div className='max-w-[700px] mx-auto'>
-            <SearchBox
-              autoFocus
-              placeholder='Busca archivos por nombre, producto o palabra clave.'
-              classNames={{
-                input: 'input',
-                submit: 'hidden',
-                reset: 'hidden',
-              }}
-            />
-          </div>
-        </div>
-        <div className='filters-container'>
-          <Panel
-            attribute='hasImage'
-            type='image'
-            title='Imágenes'
-            onClick={onPressFacet}
-            active={filterParts.includes('hasImage:true')}
-          />
-          <Panel
-            attribute='hasVideo'
-            type='video'
-            title='Videos'
-            onClick={onPressFacet}
-            active={filterParts.includes('hasVideo:true')}
-          />
-          <Panel
-            attribute='hasDocument'
-            type='document'
-            title='Documentos'
-            onClick={onPressFacet}
-            active={filterParts.includes('hasDocument:true')}
-          />
-        </div>
-        <div className='results-container'>
-          <Stats />
-          <div className='hits-container'>
-            <NoResultsBoundary fallback={<NoResults />}>
-              <Hits
-                hitComponent={Hit}
-                classNames={{
-                  list: 'max-w-[700px] mx-auto',
-                }}
+        <div className='lg:flex lg:min-h-[800px]'>
+          <div className='bg-gray-200 w-full lg:w-3/12 p-5 rounded-md mb-5 lg:mb-5'>
+            <div className='hidden lg:block'>
+              <h3>Filtros:</h3>
+              <div className='divider' />
+            </div>
+            <div className='filters-container lg:space-y-4 flex items-center justify-center gap-2 lg:block'>
+              <Panel
+                attribute='hasImage'
+                type='image'
+                title='Imágenes'
+                onClick={onPressFacet}
+                active={filterParts.includes('hasImage:true')}
               />
-            </NoResultsBoundary>
+              <Panel
+                attribute='hasVideo'
+                type='video'
+                title='Videos'
+                onClick={onPressFacet}
+                active={filterParts.includes('hasVideo:true')}
+              />
+              <Panel
+                attribute='hasDocument'
+                type='document'
+                title='Documentos'
+                onClick={onPressFacet}
+                active={filterParts.includes('hasDocument:true')}
+              />
+            </div>
+          </div>
+          <div className='w-full lg:w-9/12 lg:px-10'>
+            <div className='search-container'>
+              <div className='search-box'>
+                <SearchBox
+                  autoFocus
+                  placeholder='Busca archivos por nombre, producto o palabra clave.'
+                  classNames={{
+                    input: 'input',
+                    submit: 'hidden',
+                    reset: 'hidden',
+                  }}
+                />
+              </div>
+              <Stats />
+            </div>
+            <div className='results-container'>
+              <NoResultsBoundary fallback={<NoResults />}>
+                <Hits
+                  hitComponent={CardItem}
+                  classNames={{
+                    list: 'grid gap-4 grid-cols-1 lg:grid-cols-2',
+                  }}
+                />
+              </NoResultsBoundary>
+            </div>
           </div>
         </div>
       </InstantSearch>
