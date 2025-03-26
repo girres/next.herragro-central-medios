@@ -19,10 +19,6 @@ import {
 } from 'react-instantsearch';
 import connectStats from 'instantsearch.js/es/connectors/stats/connectStats';
 
-// import { FaImage as IconImage } from 'react-icons/fa6';
-// import { HiDocumentText as IconDoc } from 'react-icons/hi2';
-// import { PiVideoFill as IconVideo } from 'react-icons/pi';
-
 import { IoMdImages as IconImage } from 'react-icons/io';
 import { IoDocumentTextOutline as IconDoc } from 'react-icons/io5';
 import { MdOutlineOndemandVideo as IconVideo } from 'react-icons/md';
@@ -209,7 +205,11 @@ export default function Component() {
 
   return (
     <div className='search-page-container'>
-      <InstantSearch searchClient={client} indexName={ALGOLIA_INDEX_NAME}>
+      <InstantSearch
+        searchClient={client}
+        indexName={ALGOLIA_INDEX_NAME}
+        routing={true}
+      >
         <Configure filters={filter} />
         <div className='lg:flex lg:min-h-[800px]'>
           <div className='bg-gray-200 w-full lg:w-3/12 p-5 rounded-md mb-5 lg:mb-5'>
@@ -246,7 +246,7 @@ export default function Component() {
               <div className='search-box'>
                 <SearchBox
                   autoFocus
-                  placeholder='Busca archivos por nombre, producto o palabra clave.'
+                  placeholder='Busca archivos por nombre o palabra clave.'
                   classNames={{
                     input: 'input',
                     submit: 'hidden',
