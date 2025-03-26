@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaSearch } from 'react-icons/fa';
 
+const ALGOLIA_INDEX_NAME = process.env.NEXT_PUBLIC_ALGOLIA_INDEX;
+
 const HomeSearchBar = () => {
   const [query, setQuery] = useState('');
   const router = useRouter();
@@ -14,7 +16,7 @@ const HomeSearchBar = () => {
     if (!query.trim()) return;
 
     const encodedQuery = encodeURIComponent(query.trim());
-    router.push(`/assets?CentralVirtual_DEV[query]=${encodedQuery}`);
+    router.push(`/assets?${ALGOLIA_INDEX_NAME}[query]=${encodedQuery}`);
   };
 
   return (
