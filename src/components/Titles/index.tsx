@@ -13,7 +13,7 @@ export const TitleAsset = ({
   tags?: string[];
 }) => (
   <div className='title'>
-    <h1>{title}</h1>
+    <h1 className='font-title'>{title}</h1>
     {date && (
       <p className='text-xs font-medium text-gray-600 my-1'>{`Última actualización ${dateFormat(new Date(date))}`}</p>
     )}

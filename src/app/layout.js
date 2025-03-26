@@ -3,13 +3,10 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 // CSS
 import '@/styles/globals.scss';
 
-// Context Provider
-import ContextProvider from '@/context/context-provider';
-
 // Components
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { LatestPosts } from '@/components/Instagram';
+// import { LatestPosts } from '@/components/Instagram';
 
 // Google Analytics TAG
 const GTAG = process.env?.NEXT_PUBLIC_GA_ID_RESOURCES || null;
@@ -41,12 +38,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang='es' data-theme='light'>
       <body>
-        <ContextProvider>
-          <Header />
-          {children}
-          <LatestPosts />
-          <Footer />
-        </ContextProvider>
+        <Header />
+        {children}
+        {/* <LatestPosts /> */}
+        <Footer />
       </body>
       {GTAG && <GoogleAnalytics gaId={GTAG} />}
     </html>
