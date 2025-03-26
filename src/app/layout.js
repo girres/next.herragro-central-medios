@@ -9,7 +9,7 @@ import ContextProvider from '@/context/context-provider';
 // Components
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-// import { LatestPosts } from '@/components/Instagram';
+import { LatestPosts } from '@/components/Instagram';
 
 // Google Analytics TAG
 const GTAG = process.env?.NEXT_PUBLIC_GA_ID_RESOURCES || null;
@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
         <ContextProvider>
           <Header />
           {children}
-          {/* <LatestPosts /> */}
+          <LatestPosts />
           <Footer />
         </ContextProvider>
       </body>
