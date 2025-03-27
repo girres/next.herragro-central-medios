@@ -6,7 +6,7 @@ import '@/styles/globals.scss';
 // Components
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-// import { LatestPosts } from '@/components/Instagram';
+import { LatestPosts } from '@/components/Instagram';
 
 // Google Analytics TAG
 const GTAG = process.env?.NEXT_PUBLIC_GA_ID_RESOURCES || null;
@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
       <body>
         <Header />
         {children}
-        {/* <LatestPosts /> */}
+        <LatestPosts />
         <Footer />
       </body>
       {GTAG && <GoogleAnalytics gaId={GTAG} />}
