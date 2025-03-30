@@ -3,12 +3,12 @@ import Link from 'next/link';
 
 const Logo = () => {
   return (
-    <header className='py-4 bg-yellow-1'>
+    <header className='bg-yellow-1'>
       <div className='container flex items-center justify-between'>
-        <div className='main-logo max-w-[100px] lg:max-w-[150px]'>
+        <div className='main-logo max-w-[70px] lg:max-w-[120px]'>
           <Link href='/'>
             <Image
-              src='/images/logo_negro.png'
+              src='/images/logos/logo1.png'
               alt='Hub'
               width={900}
               height={400}
