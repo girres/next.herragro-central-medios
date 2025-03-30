@@ -21,10 +21,10 @@ export default async function Home() {
       <h1 className='hidden'>HUB Herragro</h1>
       <div className='px-5 relative w-full h-auto bg-yellow-1'>
         <div className='relative flex flex-col items-center justify-center w-full container py-20'>
-          <TitleAnimation text='buscador herragro' />
+          <TitleAnimation text='EXPLORA Y DESCUBRE' />
           <div className='mt-10 w-[100%] lg:w-[60%]'>
             <div className='py-5 text-2xl text-center'>
-              Imágenes, videos y documentos de nuestra marca.
+              Lo mejor de nuestro mundo Herragro
             </div>
             <HomeSearchBar />
             <p className='text-center mt-2'>
