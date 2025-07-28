@@ -15,15 +15,15 @@ export const LatestPosts = () => {
       </div>
       <div className='grid grid-cols-3 gap-2'>
         <InstagramEmbed
-          url={'https://www.instagram.com/p/Cv5gTahvteC/'}
+          url={'https://www.instagram.com/p/DMjMHqhNQ2k/'}
           width={'100%'}
         />
         <InstagramEmbed
-          url={'https://www.instagram.com/p/Cv3NKTiPvhY/'}
+          url={'https://www.instagram.com/p/DMghOCMtxsZ/'}
           width={'100%'}
         />
         <InstagramEmbed
-          url={'https://www.instagram.com/p/Cvx5uJvPb_M/'}
+          url={'https://www.instagram.com/p/DMaah_Xtv9u/'}
           width={'100%'}
         />
       </div>
