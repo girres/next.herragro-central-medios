@@ -8,7 +8,7 @@ const Logo = () => {
         <div className='main-logo max-w-[70px] lg:max-w-[120px]'>
           <Link href='/'>
             <Image
-              src='/images/logos/logo1.png'
+              src='/images/logos/logo3.png'
               alt='Hub'
               width={900}
               height={400}
