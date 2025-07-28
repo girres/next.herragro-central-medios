@@ -130,6 +130,82 @@ function Stats(props) {
   );
 }
 
+export function CardItemBasic({ data }) {
+  const assetsByType = {
+    videos: [],
+    images: [],
+    documents: [],
+  };
+
+  data.assets.forEach((asset) => {
+    const type = asset.__component?.split('.')[1];
+    if (assetsByType[type]) {
+      assetsByType[type].push(asset);
+    }
+  });
+
+  const extractTags = (items, subfields = []) =>
+    items.flatMap((item) => {
+      const tags = [item?.name].filter(Boolean);
+      subfields.forEach((field) => {
+        const subItems = item?.[field] || [];
+        tags.push(
+          ...subItems.map((sub) => sub.name || sub.label).filter(Boolean)
+        );
+      });
+      return tags;
+    });
+
+  // Tags
+  const videoTags = extractTags(assetsByType.videos, ['videos', 'videoLinks']);
+  const imageTags = extractTags(assetsByType.images, ['images']);
+  const docTags = extractTags(assetsByType.documents, ['documents']);
+  const allTags = [...videoTags, ...imageTags, ...docTags];
+
+  const hasImage = data.assets?.some(
+    (asset) => asset.__component === 'assets.images'
+  );
+  const hasVideo = data.assets?.some(
+    (asset) => asset.__component === 'arssets.videos'
+  );
+  const hasDocument = data.assets?.some(
+    (asset) => asset.__component === 'assets.documents'
+  );
+
+  const { name, slug = '/', updatedAt } = data;
+
+  return (
+    <div className='asset-result-item text-xs lg:flex gap-2 justify-between items-end p-5 my-1 rounded-md w-full relative bg-white'>
+      <div className='left lg:px-2 w-full lg:w-8/12'>
+        <div className='text-[10px] leading-[10px] font-light text-gray-500 mb-1'>
+          Actualizado el {new Date(updatedAt).toLocaleDateString()}
+        </div>
+        <div className='fontBold text-2xl'>{name}</div>
+        <div className='flex flex-wrap gap-2 mt-2'>
+          {allTags?.map((cat, index) => (
+            <div
+              key={index}
+              className='badge badge-outline text-[10px] leading-[10px] text-gray-700 border-gray-300 border'
+            >
+              {cat}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className='right w-full lg:w-4/12 flex flex-col lg:items-end mt-4 lg:mt-0'>
+        <AssetGroup video={hasVideo} image={hasImage} document={hasDocument} />
+        <Link
+          href={`/assets/${slug}`}
+          className='btn bg-yellow-1 text-black mt-3 border-none btn-block btn-sm'
+        >
+          Ver
+          <FaArrowRight className='size-4' />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 function CardItem({ hit }: HitProps) {
   const {
     hasVideo = false,

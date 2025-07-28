@@ -61,3 +61,18 @@ export async function getAssetBySlug(slug = '') {
     });
   return response;
 }
+
+export async function getAssetHome() {
+  const response = await apiRest
+    .get(
+      `/assets?populate=*&pagination[page]=1&pagination[pageSize]=4&sort=publishedAt:desc`
+    )
+    .then((res) => res?.data?.data || [])
+    .then((res) => {
+      return res.map((item) => ({
+        id: item?.id,
+        ...(item?.attributes ?? {}),
+      }));
+    });
+  return response;
+}
