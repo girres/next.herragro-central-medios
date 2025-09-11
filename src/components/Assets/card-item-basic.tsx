@@ -40,6 +40,8 @@ export const AssetGroup = ({ video, image, document }: AssetGroupProps) => {
   );
 };
 
+type Taggable = { name?: string; label?: string; [k: string]: any };
+
 export function CardItemBasic({ data }) {
   const assetsByType = {
     videos: [],
@@ -54,8 +56,8 @@ export function CardItemBasic({ data }) {
     }
   });
 
-  const extractTags = (items, subfields = []) =>
-    items.flatMap((item) => {
+  const extractTags = (items: Taggable[], subfields: string[] = []): string[] =>
+    items.flatMap((item: any) => {
       const tags = [item?.name].filter(Boolean);
       subfields.forEach((field) => {
         const subItems = item?.[field] || [];

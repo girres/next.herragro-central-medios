@@ -19,7 +19,7 @@ export function Panel({
   attribute: string;
   type: string;
   title?: string;
-  onClick: () => void;
+  onClick: (val: string) => void;
   active: boolean;
 }) {
   const size = 'size-8';

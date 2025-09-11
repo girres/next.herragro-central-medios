@@ -6,8 +6,9 @@ import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import { FaArrowRight } from 'react-icons/fa';
 
 // Algolia
-import { liteClient as algoliasearch } from 'algoliasearch/lite';
-import { Hit as AlgoliaHit } from 'instantsearch.js';
+import { liteClient as algoliasearch, Hit } from 'algoliasearch/lite';
+// import type { Hit } from 'instantsearch.js';
+
 import {
   InstantSearch,
   Hits,
@@ -16,6 +17,7 @@ import {
   Configure,
   useConnector,
   useInstantSearch,
+  useHits,
 } from 'react-instantsearch';
 import connectStats from 'instantsearch.js/es/connectors/stats/connectStats';
 
@@ -33,9 +35,17 @@ const client = algoliasearch(
   process?.env?.NEXT_PUBLIC_ALGOLIA_API_KEY || ''
 );
 
+type Product = { name: string };
+
 type HitProps = {
-  hit: AlgoliaHit<{
+  hit: Hit<{
     name: string;
+    hasVideo: boolean;
+    hasImage: boolean;
+    hasDocument: boolean;
+    slug: string;
+    categories: string[];
+    updated: Date;
   }>;
 };
 
@@ -184,21 +194,21 @@ export default function Component() {
                 attribute='hasImage'
                 type='image'
                 title='Imágenes'
-                onClick={onPressFacet}
+                onClick={() => onPressFacet}
                 active={filterParts.includes('hasImage:true')}
               />
               <Panel
                 attribute='hasVideo'
                 type='video'
                 title='Videos'
-                onClick={onPressFacet}
+                onClick={() => onPressFacet}
                 active={filterParts.includes('hasVideo:true')}
               />
               <Panel
                 attribute='hasDocument'
                 type='document'
                 title='Documentos'
-                onClick={onPressFacet}
+                onClick={() => onPressFacet}
                 active={filterParts.includes('hasDocument:true')}
               />
             </div>

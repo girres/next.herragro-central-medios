@@ -14,6 +14,9 @@ importers:
       '@next/third-parties':
         specifier: ^15.0.2
         version: 15.4.4(next@14.2.30(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.2))(react@18.3.1)
+      '@types/algoliasearch':
+        specifier: ^4.0.4
+        version: 4.0.4
       algoliasearch:
         specifier: 5.0.0
         version: 5.0.0
@@ -32,6 +35,9 @@ importers:
       instantsearch.css:
         specifier: 8.5.0
         version: 8.5.0
+      instantsearch.js:
+        specifier: ^4.80.0
+        version: 4.80.0(algoliasearch@5.0.0)
       next:
         specifier: ^14.2.5
         version: 14.2.30(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.2)
@@ -419,6 +425,10 @@ packages:
   '@tybys/wasm-util@0.10.0':
     resolution: {integrity: sha512-VyyPYFlOMNylG45GoAe0xDoLwWuowvf92F9kySqzYh8vmYm7D2u4iUJKa1tOUpS70Ku13ASrOkS4ScXFsTaCNQ==}
 
+  '@types/algoliasearch@4.0.4':
+    resolution: {integrity: sha512-vEWHnOZ02D3hhHK9MwH1D7x0GF2S9iI5e0ua4YC4ZGbBzFyN2GdrHolNGbn9D8JI0S7yL2h6HFUsSIha1FaEhQ==}
+    deprecated: This is a stub types definition. algoliasearch provides its own type definitions, so you do not need this installed.
+
   '@types/dom-speech-recognition@0.0.1':
     resolution: {integrity: sha512-udCxb8DvjcDKfk1WTBzDsxFbLgYxmQGKrE/ricoMqHRNjSlSUCcamVTA5lIQqzY10mY5qCY0QDwBfFEwhfoDPw==}
 
@@ -624,6 +634,11 @@ packages:
 
   algoliasearch-helper@3.22.4:
     resolution: {integrity: sha512-fvBCywguW9f+939S6awvRMstqMF1XXcd2qs1r1aGqL/PJ1go/DqN06tWmDVmhCDqBJanm++imletrQWf0G2S1g==}
+    peerDependencies:
+      algoliasearch: '>= 3.1 < 6'
+
+  algoliasearch-helper@3.26.0:
+    resolution: {integrity: sha512-Rv2x3GXleQ3ygwhkhJubhhYGsICmShLAiqtUuJTUkr9uOCOXyF2E71LVT4XDnVffbknv8XgScP4U0Oxtgm+hIw==}
     peerDependencies:
       algoliasearch: '>= 3.1 < 6'
 
@@ -1265,6 +1280,9 @@ packages:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
     engines: {node: '>=0.8.19'}
 
+  instantsearch-ui-components@0.11.2:
+    resolution: {integrity: sha512-XxwqUY6NifxSvHYfyfJRiGhqYqHXQFcFNOEjNyFptB9HOkx14yCdayKar4BZxGx353FnFD6b4Z8LdzbGud+RFA==}
+
   instantsearch-ui-components@0.9.0:
     resolution: {integrity: sha512-ugQ+XdPx3i3Sxu+woRo6tPE0Fz/kWd4KblTUfZD1TZZBsm/8qFvcbg5dVBDvXX9v7ntoyugXCzC/XCZMzrSkig==}
 
@@ -1273,6 +1291,11 @@ packages:
 
   instantsearch.js@4.74.0:
     resolution: {integrity: sha512-IbKAvnQ03cxb1Ni1OpLv6Yuu1W7Cu1zGru77rvgzYyPsurknpjQHdBicszSZlKaK/zND7D5vhSNZoliiz9nuEQ==}
+    peerDependencies:
+      algoliasearch: '>= 3.1 < 6'
+
+  instantsearch.js@4.80.0:
+    resolution: {integrity: sha512-l2HTW6+tBs2hGrby43Y7HbWayTifFFKk/ikRU5BXFpCigG6CRAYZLE1NFifAskaj3SVQiY8O8B/T6hJyeMsScA==}
     peerDependencies:
       algoliasearch: '>= 3.1 < 6'
 
@@ -2439,6 +2462,10 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
+  '@types/algoliasearch@4.0.4':
+    dependencies:
+      algoliasearch: 5.0.0
+
   '@types/dom-speech-recognition@0.0.1': {}
 
   '@types/estree@1.0.8': {}
@@ -2634,6 +2661,11 @@ snapshots:
       uri-js: 4.4.1
 
   algoliasearch-helper@3.22.4(algoliasearch@5.0.0):
+    dependencies:
+      '@algolia/events': 4.0.1
+      algoliasearch: 5.0.0
+
+  algoliasearch-helper@3.26.0(algoliasearch@5.0.0):
     dependencies:
       '@algolia/events': 4.0.1
       algoliasearch: 5.0.0
@@ -3442,6 +3474,10 @@ snapshots:
 
   imurmurhash@0.1.4: {}
 
+  instantsearch-ui-components@0.11.2:
+    dependencies:
+      '@babel/runtime': 7.28.2
+
   instantsearch-ui-components@0.9.0:
     dependencies:
       '@babel/runtime': 7.28.2
@@ -3460,6 +3496,22 @@ snapshots:
       hogan.js: 3.0.2
       htm: 3.1.1
       instantsearch-ui-components: 0.9.0
+      preact: 10.26.9
+      qs: 6.9.7
+      search-insights: 2.17.3
+
+  instantsearch.js@4.80.0(algoliasearch@5.0.0):
+    dependencies:
+      '@algolia/events': 4.0.1
+      '@types/dom-speech-recognition': 0.0.1
+      '@types/google.maps': 3.58.1
+      '@types/hogan.js': 3.0.5
+      '@types/qs': 6.14.0
+      algoliasearch: 5.0.0
+      algoliasearch-helper: 3.26.0(algoliasearch@5.0.0)
+      hogan.js: 3.0.2
+      htm: 3.1.1
+      instantsearch-ui-components: 0.11.2
       preact: 10.26.9
       qs: 6.9.7
       search-insights: 2.17.3

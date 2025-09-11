@@ -10,7 +10,7 @@ export const TitleAsset = ({
 }: {
   title: string;
   date?: string | null;
-  tags?: string[];
+  tags?: any[];
 }) => (
   <div className='title'>
     <h1 className='font-title'>{title}</h1>
@@ -33,7 +33,7 @@ export const TitleBlog = ({
   date = null,
 }: {
   title: string;
-  author: object | {};
+  author: any | {};
   date?: string | null;
 }) => (
   <div className='title'>
