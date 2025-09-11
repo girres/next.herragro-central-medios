@@ -7,10 +7,66 @@ import {
   ArrowDownTrayIcon,
   ArrowLeftCircleIcon,
   ArrowRightCircleIcon,
+  PlayCircleIcon,
   XCircleIcon,
 } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 import clsx from 'clsx';
+
+interface VideoPlayerProps {
+  src: string;
+  poster?: string;
+  className?: string;
+}
+
+const VideoPlayer: React.FC<VideoPlayerProps> = ({
+  src,
+  poster,
+  className,
+}) => {
+  return (
+    <div className={`relative w-full max-w-3xl mx-auto ${className ?? ''}`}>
+      <video
+        src={src}
+        poster={poster}
+        controls
+        preload='metadata'
+        playsInline
+        className='w-full h-auto rounded-2xl shadow-lg'
+      >
+        Tu navegador no soporta el elemento <code>video</code>.
+      </video>
+    </div>
+  );
+};
+
+interface ImageGallery {
+  id: number;
+  position: number;
+  attributes: {
+    name: string;
+    url: string;
+    ext: string;
+    alternativeText?: string;
+    formats: {
+      small: {
+        url: string;
+      };
+    };
+  };
+}
+
+interface Video {
+  id: number;
+  attributes: {
+    name: string;
+    url: string;
+    ext: string;
+  };
+}
+
+const cmsLoader: ImageLoader = ({ src, width, quality }) =>
+  `${src}?w=${width}&q=${quality ?? 20}`;
 
 const Icon = ({ type }: { type: string }) => {
   let src: string | null = null;
@@ -38,14 +94,16 @@ const ContentVideos = ({
   data = [],
   links = [],
 }: {
-  data: Object[];
+  data: Video[];
   links: Object[];
 }) => {
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+
   return (
     <div className='grid grid-cols-1 gap-2'>
       {data &&
         data.length > 0 &&
-        data.map((item: any, index) => {
+        data.map((item: Video, index) => {
           const ext = item.attributes.ext.toLowerCase().replace('.', '');
           return (
             <div
@@ -59,6 +117,13 @@ const ContentVideos = ({
                 <div className='w-8'>
                   <FileIcon extension={ext} {...defaultStyles[ext]} />
                 </div>
+                <button
+                  type='button'
+                  className='btn btn-circle ml-4'
+                  onClick={() => setSelectedVideo(item)}
+                >
+                  <PlayCircleIcon className='size-6' />
+                </button>
                 <Link
                   href={item?.attributes?.url ?? '#'}
                   rel='noopener noreferrer'
@@ -99,28 +164,29 @@ const ContentVideos = ({
             </div>
           );
         })}
+
+      {selectedVideo && (
+        <dialog id='video-modal' className='modal modal-open'>
+          <div className='modal-box w-11/12 max-w-5xl p-0'>
+            <div className='bg-gray-50 flex items-center justify-end w-full left-0 right-0 top-0 p-5'>
+              <button onClick={() => setSelectedVideo(null)}>
+                <XCircleIcon className='size-10' />
+              </button>
+            </div>
+            <div className='p-10 flex flex-col items-center'>
+              <h3 className='font-bold text-lg'>
+                {selectedVideo.attributes?.name}
+              </h3>
+              <div className='relative'>
+                <VideoPlayer src={selectedVideo.attributes.url} />
+              </div>
+            </div>
+          </div>
+        </dialog>
+      )}
     </div>
   );
 };
-
-interface ImageGallery {
-  id: number;
-  position: number;
-  attributes: {
-    name: string;
-    url: string;
-    ext: string;
-    alternativeText?: string;
-    formats: {
-      small: {
-        url: string;
-      };
-    };
-  };
-}
-
-const cmsLoader: ImageLoader = ({ src, width, quality }) =>
-  `${src}?w=${width}&q=${quality ?? 20}`;
 
 const ContentImages = ({ data = [] }: { data: ImageGallery[] }) => {
   const [loadComplete, setLoadComplete] = useState<boolean>(false);
