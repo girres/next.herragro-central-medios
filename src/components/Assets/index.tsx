@@ -124,7 +124,7 @@ const ContentImages = ({ data = [] }: { data: Object[] }) => {
               <div className='w-8 mr-3'>
                 <FileIcon extension={ext} {...defaultStyles[ext]} />
               </div>
-              <span>{`${item?.attributes?.height} x ${item?.attributes?.width}`}</span>
+              <span>{`${item?.attributes?.alternativeText || item?.attributes?.name}`}</span>
               {/* Action Button */}
               <div className='action'>
                 <Link
