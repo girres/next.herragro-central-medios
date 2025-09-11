@@ -9,7 +9,7 @@ import { getAssetHome, getPostsPromoted } from '@/services/strapi';
 import HomeSearchBar from '@/components/Algolia/HomeSearchBar';
 import PostPromoted from '@/components/Blog/PostPromoted';
 import TitleAnimation from '@/components/Titles/TitleAnimation';
-import { CardItemBasic } from '@/components/Algolia';
+import { CardItemBasic } from '@/components/Assets/card-item-basic';
 
 // Revalidate time for the page // 10 minutes
 export const revalidate = 600;

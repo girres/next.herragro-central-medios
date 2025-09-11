@@ -65,7 +65,7 @@ export async function getAssetBySlug(slug = '') {
 export async function getAssetHome() {
   const response = await apiRest
     .get(
-      `/assets?populate=*&pagination[page]=1&pagination[pageSize]=4&sort=publishedAt:desc`
+      `/assets?filters[promoted]=true&pagination[page]=1&pagination[pageSize]=4&sort=publishedAt:desc&populate=*`
     )
     .then((res) => res?.data?.data || [])
     .then((res) => {

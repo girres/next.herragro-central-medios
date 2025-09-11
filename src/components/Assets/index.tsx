@@ -1,10 +1,19 @@
-import Image from 'next/image';
+'use client';
+
+import Image, { ImageLoader } from 'next/image';
 import Link from 'next/link';
 import { FileIcon, defaultStyles } from 'react-file-icon';
-import { ArrowDownTrayIcon } from '@heroicons/react/24/solid';
+import {
+  ArrowDownTrayIcon,
+  ArrowLeftCircleIcon,
+  ArrowRightCircleIcon,
+  XCircleIcon,
+} from '@heroicons/react/24/solid';
+import { useState } from 'react';
+import clsx from 'clsx';
 
 const Icon = ({ type }: { type: string }) => {
-  let src = null;
+  let src: string | null = null;
 
   switch (type) {
     case 'assets.videos':
@@ -36,7 +45,7 @@ const ContentVideos = ({
     <div className='grid grid-cols-1 gap-2'>
       {data &&
         data.length > 0 &&
-        data.map((item, index) => {
+        data.map((item: any, index) => {
           const ext = item.attributes.ext.toLowerCase().replace('.', '');
           return (
             <div
@@ -64,7 +73,7 @@ const ContentVideos = ({
         })}
       {links &&
         links.length > 0 &&
-        links.map((item, index) => {
+        links.map((item: any, index) => {
           return (
             <div
               key={index}
@@ -94,23 +103,48 @@ const ContentVideos = ({
   );
 };
 
-const ContentImages = ({ data = [] }: { data: Object[] }) => {
+interface ImageGallery {
+  id: number;
+  position: number;
+  attributes: {
+    name: string;
+    url: string;
+    ext: string;
+    alternativeText?: string;
+    formats: {
+      small: {
+        url: string;
+      };
+    };
+  };
+}
+
+const cmsLoader: ImageLoader = ({ src, width, quality }) =>
+  `${src}?w=${width}&q=${quality ?? 20}`;
+
+const ContentImages = ({ data = [] }: { data: ImageGallery[] }) => {
+  const [loadComplete, setLoadComplete] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<ImageGallery | null>(null);
   return (
     <div className='grid grid-cols-2 lg:grid-cols-4 gap-2'>
-      {data.map((item, index) => {
+      {data.map((item: ImageGallery, index: number) => {
         const ext = item.attributes.ext.toLowerCase().replace('.', '');
         return (
           <div
             key={index}
-            className='relative rounded bg-gray-100 border-2 border-gray-300'
+            className='relative rounded bg-gray-100 border-2 border-gray-300 cursor-pointer'
+            onClick={() =>
+              setSelectedImage({
+                ...item,
+                position: index,
+              })
+            }
           >
             {/* Image Container */}
             <div className='relative box w-full h-[200px]'>
               <Image
-                src={
-                  item?.attributes?.formats?.small?.url ?? item.attributes.url
-                }
-                alt={item?.attributes?.alt ?? index}
+                src={item.attributes.formats.small.url}
+                alt={item.attributes?.alternativeText || item.attributes.name}
                 fill
                 style={{
                   objectFit: 'contain',
@@ -141,11 +175,80 @@ const ContentImages = ({ data = [] }: { data: Object[] }) => {
           </div>
         );
       })}
+      {selectedImage && (
+        <dialog id='image-modal' className='modal modal-open'>
+          <div className='modal-box w-11/12 max-w-5xl p-0'>
+            <div className='bg-gray-50 flex items-center justify-between w-full left-0 right-0 top-0 p-5'>
+              <div className='flex items-center gap-10'>
+                <button
+                  className='btn btn-xs'
+                  disabled={selectedImage.position < 1}
+                  onClick={() => {
+                    setLoadComplete(false);
+                    setSelectedImage({
+                      ...data[selectedImage.position - 1],
+                      position: selectedImage.position - 1,
+                    });
+                  }}
+                >
+                  <ArrowLeftCircleIcon className='size-5' />
+                  Anterior
+                </button>
+                <button
+                  className='btn btn-xs'
+                  disabled={data.length === selectedImage.position + 1}
+                  onClick={() => {
+                    setLoadComplete(false);
+                    setSelectedImage({
+                      ...data[selectedImage.position + 1],
+                      position: selectedImage.position + 1,
+                    });
+                  }}
+                >
+                  <ArrowRightCircleIcon className='size-5' />
+                  Siguiente
+                </button>
+              </div>
+              <button onClick={() => setSelectedImage(null)}>
+                <XCircleIcon className='size-10' />
+              </button>
+            </div>
+            <div className='p-10 flex flex-col items-center'>
+              <h3 className='font-bold text-lg'>
+                {selectedImage.attributes?.name}
+              </h3>
+              <div className='relative'>
+                <Image
+                  src={selectedImage.attributes.url}
+                  alt='Modal'
+                  width={800}
+                  height={800}
+                  quality={100}
+                  className={clsx(
+                    'max-w-[800px] h-auto w-full opacity-0',
+                    loadComplete && 'opacity-100'
+                  )}
+                  loading='lazy'
+                  loader={cmsLoader}
+                  onLoad={() => setLoadComplete(true)}
+                />
+                {!loadComplete && (
+                  <div
+                    className={
+                      'absolute h-full w-full bg-gray-100 animate-pulse z-20 top-0 bottom-0 left-0 right-0 rounded-xl min-h-[500px]'
+                    }
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        </dialog>
+      )}
     </div>
   );
 };
 
-const ContentDocuments = ({ data = [] }: { data: Object[] }) => {
+const ContentDocuments = ({ data = [] }: { data: any[] }) => {
   return (
     <div className='grid grid-cols-1 gap-2'>
       {data.map((item, index) => {
@@ -178,8 +281,8 @@ const ContentDocuments = ({ data = [] }: { data: Object[] }) => {
   );
 };
 
-const Content = ({ type, data = [] }: { type: string; data: object[] }) => {
-  let Comp = null;
+const Content = ({ type, data = {} }: { type: string; data: any }) => {
+  let Comp: React.ReactNode | null = null;
 
   switch (type) {
     case 'assets.videos':
@@ -198,7 +301,7 @@ const Content = ({ type, data = [] }: { type: string; data: object[] }) => {
   return Comp;
 };
 
-export const AssetCard = ({ data = {} }: { data: object }) => {
+export const AssetCard = ({ data = {} }: { data: any }) => {
   return (
     <div className='asset-card relative rounded-lg shadow p-5 lg:p-10 bg-gray-200'>
       <div className='top flex items-center justify-between'>
