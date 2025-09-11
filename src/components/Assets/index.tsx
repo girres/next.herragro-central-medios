@@ -33,6 +33,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         preload='metadata'
         playsInline
         className='w-full h-auto rounded-2xl shadow-lg'
+        autoPlay
       >
         Tu navegador no soporta el elemento <code>video</code>.
       </video>
