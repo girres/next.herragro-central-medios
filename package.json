@@ -1,7 +1,8 @@
 {
-  "name": "next.boilerplate",
+  "name": "next.hub",
   "version": "0.1.0",
   "private": true,
+  "author": "Herragro SA",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -14,7 +15,7 @@
     "algoliasearch": "5.0.0",
     "axios": "^1.7.4",
     "clsx": "^2.1.1",
-    "eslint": "^8.55.0",
+    "eslint": "^9.27.0",
     "eslint-config-next": "^14.0.3",
     "instantsearch.css": "8.5.0",
     "next": "^14.2.5",
@@ -28,15 +29,17 @@
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
+    "@types/node": "20.14.11",
+    "@types/react": "18.3.3",
     "daisyui": "^4.12.10",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-next": "0.0.0",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "postcss": "^8",
-    "prettier": "^3.3.3",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-next": "^0.0.0",
+    "eslint-plugin-react": "^7.34.4",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "postcss": "^8.4.16",
+    "prettier": "^3.3.2",
     "sass": "^1.77.8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.5.4"
+    "tailwindcss": "^3.4.6",
+    "typescript": "5.5.3"
   }
 }
