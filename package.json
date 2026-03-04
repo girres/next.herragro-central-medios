@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1001.0",
     "@heroicons/react": "^2.1.5",
     "@next/third-parties": "^15.0.2",
     "@types/algoliasearch": "^4.0.4",
@@ -20,7 +21,7 @@
     "eslint-config-next": "^14.0.3",
     "instantsearch.css": "8.5.0",
     "instantsearch.js": "^4.80.0",
-    "next": "^14.2.5",
+    "next": "14.2.35",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-file-icon": "^1.5.0",

@@ -126,7 +126,8 @@ const ContentVideos = ({
                   <PlayCircleIcon className='size-6' />
                 </button>
                 <Link
-                  href={item?.attributes?.url ?? '#'}
+                  // href={item?.attributes?.url ?? '#'}
+                  href={`/api/download?url=${encodeURIComponent(item.attributes.url)}&filename=${encodeURIComponent(item.attributes.name)}`}
                   rel='noopener noreferrer'
                   target='_blank'
                   className='btn btn-circle ml-4'
@@ -165,7 +166,6 @@ const ContentVideos = ({
             </div>
           );
         })}
-
       {selectedVideo && (
         <dialog id='video-modal' className='modal modal-open'>
           <div className='modal-box w-11/12 max-w-5xl p-0'>
@@ -200,15 +200,17 @@ const ContentImages = ({ data = [] }: { data: ImageGallery[] }) => {
           <div
             key={index}
             className='relative rounded bg-gray-100 border-2 border-gray-300 cursor-pointer'
-            onClick={() =>
-              setSelectedImage({
-                ...item,
-                position: index,
-              })
-            }
           >
             {/* Image Container */}
-            <div className='relative box w-full h-[200px]'>
+            <div
+              className='relative box w-full h-[200px]'
+              onClick={() =>
+                setSelectedImage({
+                  ...item,
+                  position: index,
+                })
+              }
+            >
               <Image
                 src={item.attributes.formats.small.url}
                 alt={item.attributes?.alternativeText || item.attributes.name}
@@ -230,10 +232,9 @@ const ContentImages = ({ data = [] }: { data: ImageGallery[] }) => {
               <div className='action'>
                 <Link
                   className='btn btn-circle'
-                  href={`${item.attributes.url}?download=true`}
+                  href={`/api/download?url=${encodeURIComponent(item.attributes.url)}&filename=${encodeURIComponent(item.attributes.name)}`}
                   rel='noopener noreferrer'
                   target='_blank'
-                  download
                 >
                   <ArrowDownTrayIcon className='h-6 w-6' />
                 </Link>
@@ -333,7 +334,8 @@ const ContentDocuments = ({ data = [] }: { data: any[] }) => {
                 <FileIcon extension={ext} {...defaultStyles[ext]} />
               </div>
               <Link
-                href={item?.attributes?.url ?? '#'}
+                // href={item?.attributes?.url ?? '#'}
+                href={`/api/download?url=${encodeURIComponent(item.attributes.url)}&filename=${encodeURIComponent(item.attributes.name)}`}
                 rel='noopener noreferrer'
                 target='_blank'
                 className='btn btn-circle ml-4'

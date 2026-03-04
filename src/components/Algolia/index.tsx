@@ -194,21 +194,21 @@ export default function Component() {
                 attribute='hasImage'
                 type='image'
                 title='Imágenes'
-                onClick={() => onPressFacet}
+                onClick={onPressFacet}
                 active={filterParts.includes('hasImage:true')}
               />
               <Panel
                 attribute='hasVideo'
                 type='video'
                 title='Videos'
-                onClick={() => onPressFacet}
+                onClick={onPressFacet}
                 active={filterParts.includes('hasVideo:true')}
               />
               <Panel
                 attribute='hasDocument'
                 type='document'
                 title='Documentos'
-                onClick={() => onPressFacet}
+                onClick={onPressFacet}
                 active={filterParts.includes('hasDocument:true')}
               />
             </div>
